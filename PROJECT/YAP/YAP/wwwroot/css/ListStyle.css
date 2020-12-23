@@ -1,0 +1,88 @@
+﻿.pressed-row {
+    background-color: var(--pressed-row-color);
+}
+
+.unpressed-row {
+    background-color: var(--unpressed-row-color);
+}
+
+#list {
+    display: grid;
+    grid-template-rows: 45%;
+    justify-items: stretch;
+    align-items: stretch;
+    position: relative;
+}
+
+#list .dnd-cover {
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    color: var(--text-color);
+    background-color: var(--unpressed-row-color);
+}
+
+#list .dnd-cover p {
+    padding: 1em;
+    text-align: center;
+    font-size: 2em;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+#list .dnd-cover img {
+    display: block;
+    width: 33%;
+    margin-left: 33%;
+}
+
+
+#list .dnd-shown {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: -1;
+}
+
+#list.highlight .dnd-shown {
+    z-index: 1;
+}
+
+
+.attractions-body {
+    overflow-y: scroll;
+}
+
+.red-x {
+    display: block;
+    width: 100%;
+}
+
+.attraction-row {
+    max-height: 30%;
+    border-top: 2px solid var(--list-border-color);
+}
+
+.attractions-list {
+    display: grid;
+    grid-template-rows: auto;
+    justify-items: stretch;
+    align-items: stretch;
+    grid-gap: 0;
+    border: 3px solid var(--list-border-color);
+}
+
+.attractions-data {
+    width: 88%;
+}
+
+.table {
+    margin-bottom: 0;
+    color: var(--text-color);
+}
+
+.table-head {
+    background-color: var(--list-table-head-background-color);
+    border-bottom: 3px solid var(--list-border-color);
+}

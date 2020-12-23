@@ -1,23 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Lenovo\\Desktop\\Studies\\סדנה במסדי נתונים\\Project\\ProjectDB\\PROJECT\\YAP\\YAP\\YAP.csproj": {}
+    "D:\\Visual Studio\\ProjectDB\\ProjectDB\\PROJECT\\YAP\\YAP\\YAP.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Lenovo\\Desktop\\Studies\\סדנה במסדי נתונים\\Project\\ProjectDB\\PROJECT\\YAP\\YAP\\YAP.csproj": {
+    "D:\\Visual Studio\\ProjectDB\\ProjectDB\\PROJECT\\YAP\\YAP\\YAP.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Lenovo\\Desktop\\Studies\\סדנה במסדי נתונים\\Project\\ProjectDB\\PROJECT\\YAP\\YAP\\YAP.csproj",
+        "projectUniqueName": "D:\\Visual Studio\\ProjectDB\\ProjectDB\\PROJECT\\YAP\\YAP\\YAP.csproj",
         "projectName": "YAP",
-        "projectPath": "C:\\Users\\Lenovo\\Desktop\\Studies\\סדנה במסדי נתונים\\Project\\ProjectDB\\PROJECT\\YAP\\YAP\\YAP.csproj",
-        "packagesPath": "C:\\Users\\Lenovo\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Lenovo\\Desktop\\Studies\\סדנה במסדי נתונים\\Project\\ProjectDB\\PROJECT\\YAP\\YAP\\obj\\",
+        "projectPath": "D:\\Visual Studio\\ProjectDB\\ProjectDB\\PROJECT\\YAP\\YAP\\YAP.csproj",
+        "packagesPath": "C:\\Users\\Inbar\\.nuget\\packages\\",
+        "outputPath": "D:\\Visual Studio\\ProjectDB\\ProjectDB\\PROJECT\\YAP\\YAP\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Lenovo\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Inbar\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -76,7 +73,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.200\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.201\\RuntimeIdentifierGraph.json"
         }
       }
     }
