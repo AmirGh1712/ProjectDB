@@ -41,7 +41,10 @@ namespace YAP
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseHttpsRedirection();
+            //allow access to files stored in wwwroot
+            app.UseStaticFiles();
+
+            // app.UseHttpsRedirection();
 
             app.UseRouting();
 

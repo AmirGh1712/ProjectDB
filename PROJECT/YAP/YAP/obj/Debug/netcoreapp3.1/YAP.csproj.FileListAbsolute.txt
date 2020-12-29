@@ -107,3 +107,40 @@ C:\Users\Lenovo\Desktop\Studies\סדנה במסדי נתונים\Project\Project
 C:\Users\Lenovo\Desktop\Studies\סדנה במסדי נתונים\Project\ProjectDB\PROJECT\YAP\YAP\bin\Debug\netcoreapp3.1\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\Users\Lenovo\Desktop\Studies\סדנה במסדי נתונים\Project\ProjectDB\PROJECT\YAP\YAP\obj\Debug\netcoreapp3.1\YAP.csproj.CoreCompileInputs.cache
 C:\Users\Lenovo\Desktop\Studies\סדנה במסדי נתונים\Project\ProjectDB\PROJECT\YAP\YAP\obj\Debug\netcoreapp3.1\YAP.MvcApplicationPartsAssemblyInfo.cache
+D:\Visual Studio\ProjectDB\ProjectDB\PROJECT\YAP\YAP\obj\Debug\netcoreapp3.1\YAP.dll
+D:\Visual Studio\ProjectDB\ProjectDB\PROJECT\YAP\YAP\obj\Debug\netcoreapp3.1\YAP.pdb
+D:\Visual Studio\ProjectDB\ProjectDB\PROJECT\YAP\YAP\bin\Debug\netcoreapp3.1\appsettings.Development.json
+D:\Visual Studio\ProjectDB\ProjectDB\PROJECT\YAP\YAP\bin\Debug\netcoreapp3.1\appsettings.json
+D:\Visual Studio\ProjectDB\ProjectDB\PROJECT\YAP\YAP\bin\Debug\netcoreapp3.1\Properties\launchSettings.json
+D:\Visual Studio\ProjectDB\ProjectDB\PROJECT\YAP\YAP\bin\Debug\netcoreapp3.1\YAP.exe
+D:\Visual Studio\ProjectDB\ProjectDB\PROJECT\YAP\YAP\bin\Debug\netcoreapp3.1\YAP.deps.json
+D:\Visual Studio\ProjectDB\ProjectDB\PROJECT\YAP\YAP\bin\Debug\netcoreapp3.1\YAP.runtimeconfig.json
+D:\Visual Studio\ProjectDB\ProjectDB\PROJECT\YAP\YAP\bin\Debug\netcoreapp3.1\YAP.runtimeconfig.dev.json
+D:\Visual Studio\ProjectDB\ProjectDB\PROJECT\YAP\YAP\bin\Debug\netcoreapp3.1\YAP.dll
+D:\Visual Studio\ProjectDB\ProjectDB\PROJECT\YAP\YAP\bin\Debug\netcoreapp3.1\YAP.pdb
+D:\Visual Studio\ProjectDB\ProjectDB\PROJECT\YAP\YAP\bin\Debug\netcoreapp3.1\BouncyCastle.Crypto.dll
+D:\Visual Studio\ProjectDB\ProjectDB\PROJECT\YAP\YAP\bin\Debug\netcoreapp3.1\Google.Protobuf.dll
+D:\Visual Studio\ProjectDB\ProjectDB\PROJECT\YAP\YAP\bin\Debug\netcoreapp3.1\K4os.Compression.LZ4.dll
+D:\Visual Studio\ProjectDB\ProjectDB\PROJECT\YAP\YAP\bin\Debug\netcoreapp3.1\K4os.Compression.LZ4.Streams.dll
+D:\Visual Studio\ProjectDB\ProjectDB\PROJECT\YAP\YAP\bin\Debug\netcoreapp3.1\K4os.Hash.xxHash.dll
+D:\Visual Studio\ProjectDB\ProjectDB\PROJECT\YAP\YAP\bin\Debug\netcoreapp3.1\MySql.Data.dll
+D:\Visual Studio\ProjectDB\ProjectDB\PROJECT\YAP\YAP\bin\Debug\netcoreapp3.1\Ubiety.Dns.Core.dll
+D:\Visual Studio\ProjectDB\ProjectDB\PROJECT\YAP\YAP\bin\Debug\netcoreapp3.1\Zstandard.Net.dll
+D:\Visual Studio\ProjectDB\ProjectDB\PROJECT\YAP\YAP\bin\Debug\netcoreapp3.1\MySqlConnector.dll
+D:\Visual Studio\ProjectDB\ProjectDB\PROJECT\YAP\YAP\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
+D:\Visual Studio\ProjectDB\ProjectDB\PROJECT\YAP\YAP\bin\Debug\netcoreapp3.1\Renci.SshNet.dll
+D:\Visual Studio\ProjectDB\ProjectDB\PROJECT\YAP\YAP\bin\Debug\netcoreapp3.1\SshNet.Security.Cryptography.dll
+D:\Visual Studio\ProjectDB\ProjectDB\PROJECT\YAP\YAP\bin\Debug\netcoreapp3.1\System.Configuration.ConfigurationManager.dll
+D:\Visual Studio\ProjectDB\ProjectDB\PROJECT\YAP\YAP\bin\Debug\netcoreapp3.1\System.Security.Cryptography.ProtectedData.dll
+D:\Visual Studio\ProjectDB\ProjectDB\PROJECT\YAP\YAP\bin\Debug\netcoreapp3.1\System.Xml.XPath.XmlDocument.dll
+D:\Visual Studio\ProjectDB\ProjectDB\PROJECT\YAP\YAP\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
+D:\Visual Studio\ProjectDB\ProjectDB\PROJECT\YAP\YAP\obj\Debug\netcoreapp3.1\YAP.csprojAssemblyReference.cache
+D:\Visual Studio\ProjectDB\ProjectDB\PROJECT\YAP\YAP\obj\Debug\netcoreapp3.1\YAP.csproj.CoreCompileInputs.cache
+D:\Visual Studio\ProjectDB\ProjectDB\PROJECT\YAP\YAP\obj\Debug\netcoreapp3.1\YAP.MvcApplicationPartsAssemblyInfo.cache
+D:\Visual Studio\ProjectDB\ProjectDB\PROJECT\YAP\YAP\obj\Debug\netcoreapp3.1\YAP.AssemblyInfoInputs.cache
+D:\Visual Studio\ProjectDB\ProjectDB\PROJECT\YAP\YAP\obj\Debug\netcoreapp3.1\YAP.AssemblyInfo.cs
+D:\Visual Studio\ProjectDB\ProjectDB\PROJECT\YAP\YAP\obj\Debug\netcoreapp3.1\YAP.RazorTargetAssemblyInfo.cache
+D:\Visual Studio\ProjectDB\ProjectDB\PROJECT\YAP\YAP\obj\Debug\netcoreapp3.1\YAP.csproj.CopyComplete
+D:\Visual Studio\ProjectDB\ProjectDB\PROJECT\YAP\YAP\obj\Debug\netcoreapp3.1\staticwebassets\YAP.StaticWebAssets.Manifest.cache
+D:\Visual Studio\ProjectDB\ProjectDB\PROJECT\YAP\YAP\obj\Debug\netcoreapp3.1\staticwebassets\YAP.StaticWebAssets.xml
+D:\Visual Studio\ProjectDB\ProjectDB\PROJECT\YAP\YAP\obj\Debug\netcoreapp3.1\YAP.genruntimeconfig.cache
