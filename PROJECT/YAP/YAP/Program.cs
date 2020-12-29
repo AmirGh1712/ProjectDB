@@ -13,7 +13,7 @@ namespace YAP
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             CreateHostBuilder(args).Build().Run();
 
@@ -33,13 +33,13 @@ namespace YAP
             //bool amfalse = await userDB.CheckUsername("mirmr1712");
             //Console.WriteLine("ndjs");
 
-            //Review rev = new Review(5, "mirmir1712", "shitty place", 2, new DateTime(2020, 12, 16));
-            //IReviewsDB reviewsDB = new MyReviewsDB("Server=127.0.0.1;Port=3306;Database=yapschema;User Id=root;Password=yapapp123!;");
+/*            Review rev = new Review(5, "mirmir1712", "shitty place", 2, new DateTime(2020, 12, 16));
+            IReviewsDB reviewsDB = new MyReviewsDB("Server=127.0.0.1;Port=3306;Database=yapschema;User Id=root;Password=yapapp123!;");
 
-            //await foreach (Review r in reviewsDB.GetReviewsOnPlace(5))
-            //{
-            //    Console.WriteLine(r.Date);
-            //}
+            await foreach (Review r in reviewsDB.GetReviewsOnPlace(5))
+            {
+                Console.WriteLine(r.Date);
+            }*/
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
