@@ -6,7 +6,7 @@ using YAP.Objects;
 
 namespace YAP.DataBase
 {
-    interface IReviewsDB
+    public interface IReviewsDB
     {
         public Task AddReview(Review review);
 

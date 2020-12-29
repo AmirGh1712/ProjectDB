@@ -29,6 +29,8 @@ namespace YAP
             services.AddControllers();
 
             services.AddSingleton<IPlacesDB, MyPlacesDB>();
+            services.AddSingleton<IReviewsDB, MyReviewsDB>();
+            services.AddSingleton<IUserDB, MyUserDB>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

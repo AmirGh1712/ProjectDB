@@ -39,6 +39,7 @@ namespace YAP.DataBase
             command.Parameters.AddWithValue("@review", review.Text);
             command.Parameters.AddWithValue("@stars", review.Stars);
             command.Parameters.AddWithValue("@date", review.Date.ToString("yyyy-MM-dd"));
+            //command.Parameters.AddWithValue("@date", review.Date);
             try
             {
                 // Execute

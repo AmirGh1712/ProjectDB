@@ -6,7 +6,7 @@ using YAP.Objects;
 
 namespace YAP.DataBase
 {
-    interface IPlacesDB
+    public interface IPlacesDB
     {
         public IAsyncEnumerable<Place> GetPlaces(Filter filter);
     }

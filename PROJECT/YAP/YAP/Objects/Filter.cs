@@ -10,16 +10,17 @@ namespace YAP.Objects
     public class Filter
     {
         // min & max for lat & long, min stars, list of strings of categories & city string
-        private int minlat = -90;
-        private int maxlat = 90;
-        private int minlong = -180;
-        private int maxlong = 180;
-        private int stars = 0;
-        private LinkedList<string> cats;
+        private float minlat = -90;
+        private float maxlat = 90;
+        private float minlong = -180;
+        private float maxlong = 180;
+        public int stars { get; set; }
+        public LinkedList<string> cats { get; set; }
 
         public Filter()
         {
             DefualtCats();
+            stars = 0;
         }
 
         public Filter(int stars)
@@ -28,20 +29,22 @@ namespace YAP.Objects
             DefualtCats();
         }
 
-        public Filter(int minlat, int maxlat, int minlong, int maxlong)
+        public Filter(float minlat, float maxlat, float minlong, float maxlong)
         {
             this.minlat = minlat;
             this.maxlat = maxlat;
             this.minlong = minlong;
             this.maxlong = maxlong;
             DefualtCats();
+            stars = 0;
         }
         public Filter(List<string> cats)
         {
             this.cats = new LinkedList<string>(cats);
+            stars = 0;
         }
 
-        public Filter(int stars, int minlat, int maxlat, int minlong, int maxlong)
+        public Filter(int stars, float minlat, float maxlat, float minlong, float maxlong)
         {
             this.minlat = minlat;
             this.maxlat = maxlat;
@@ -57,16 +60,17 @@ namespace YAP.Objects
             this.cats = new LinkedList<string>(cats);
         }
 
-        public Filter(int minlat, int maxlat, int minlong, int maxlong, List<string> cats)
+        public Filter(float minlat, float maxlat, float minlong, float maxlong, List<string> cats)
         {
             this.minlat = minlat;
             this.maxlat = maxlat;
             this.minlong = minlong;
             this.maxlong = maxlong;
             this.cats = new LinkedList<string>(cats);
+            stars = 0;
         }
 
-        public Filter(int stars, int minlat, int maxlat, int minlong, int maxlong, List<string> cats)
+        public Filter(int stars, float minlat, float maxlat, float minlong, float maxlong, List<string> cats)
         {
             this.stars = stars;
             this.minlat = minlat;

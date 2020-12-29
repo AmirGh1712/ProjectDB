@@ -6,7 +6,7 @@ using YAP.Objects;
 
 namespace YAP.DataBase
 {
-    interface IUserDB
+    public interface IUserDB
     {
         public Task AddUser(User user);
 

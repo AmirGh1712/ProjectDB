@@ -10,21 +10,26 @@ namespace YAP.Objects
     {
         [Newtonsoft.Json.JsonProperty("username")]
         [JsonPropertyName("username")]
-        public string Username { get; private set; }
+        public string Username { get; set; }
 
         [Newtonsoft.Json.JsonProperty("password")]
         [JsonPropertyName("password")]
-        public string Password { get; private set; }
+        public string Password { get; set; }
 
         [Newtonsoft.Json.JsonProperty("fullname")]
         [JsonPropertyName("fullname")]
-        public string Fullname { get; private set; }
+        public string Fullname { get; set; }
 
         public User(string uname, string password, string fullname)
         {
             Username = uname;
             Password = password;
             Fullname = fullname;
+        }
+
+        public User()
+        {
+
         }
     }
 }
