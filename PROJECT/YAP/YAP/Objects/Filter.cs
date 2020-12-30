@@ -90,7 +90,7 @@ namespace YAP.Objects
         public string CreateCommand()
         {
             //SELECT * FROM places LEFT JOIN reviews ON places.idPlaces = reviews.idPlaces GROUP BY(places.idPlaces) HAVING AVG(COALESCE(stars, 0)) >= 0 ORDER BY AVG(stars) DESC;
-            string command = "SELECT * FROM places LEFT JOIN reviews ON places.idPlaces = reviews.idPlaces";
+            string command = "SELECT *, AVG(COALESCE(stars, 0)) AS avgstars FROM places LEFT JOIN reviews ON places.idPlaces = reviews.idPlaces";
             //if (stars != 0)
             //{
             //    command += " LEFT JOIN reviews ON places.idPlaces = reviews.idPlaces";

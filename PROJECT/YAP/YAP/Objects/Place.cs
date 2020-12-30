@@ -58,6 +58,10 @@ namespace YAP.Objects
         [JsonPropertyName("directions")]
         public string Directions { get; private set; }
 
+        [Newtonsoft.Json.JsonProperty("stars")]
+        [JsonPropertyName("stars")]
+        public float Stars { get; private set; }
+
 
 
 
@@ -102,7 +106,7 @@ namespace YAP.Objects
         /// A default constructor.
         /// </summary>
         public Place(int idp, string city, string cat, string name, string addr, string direc, string phone,
-            string url, string hours, float lati, float longi, string desc)
+            string url, string hours, float lati, float longi, string desc, float stars)
         {
             Id = idp;
             City = city;
@@ -116,6 +120,7 @@ namespace YAP.Objects
             Latitude = lati;
             Longitude = longi;
             Description = desc;
+            Stars = stars;
         }
     }
 }

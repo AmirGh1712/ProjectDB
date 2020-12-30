@@ -50,10 +50,11 @@ namespace YAP.DataBase
                 float latitude = rdr.GetFloat(9);
                 float longitude = rdr.GetFloat(10);
                 string description = rdr.GetString(11);
+                float stars = rdr.GetFloat("avgstars");
 
                 // Create it
                 Place place = new Place(id, city, category, name, address, directions, phone, url, hours,
-                    latitude, longitude, description);
+                    latitude, longitude, description, stars);
 
                 // Return it
                 yield return place;

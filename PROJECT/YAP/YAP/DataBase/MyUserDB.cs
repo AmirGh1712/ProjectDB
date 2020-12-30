@@ -85,5 +85,62 @@ namespace YAP.DataBase
             using MySqlDataReader rdr = (MySqlDataReader)await command.ExecuteReaderAsync();
             return rdr.HasRows;
         }
+
+        // error = -2
+        public async Task<float> GetAvgCategory(string uname, string category)
+        {
+            // Opening the connection
+            using MySqlConnection con = new MySqlConnection(connectionString);
+            await con.OpenAsync();
+            // Get from the DB
+            using MySqlCommand command = new MySqlCommand("SELECT COALESCE(AVG(stars), -1) FROM reviews JOIN places ON " +
+                "places.idPlaces = reviews.idPlaces WHERE username=@username AND category=@category", con);
+            command.Parameters.AddWithValue("@username", uname);
+            command.Parameters.AddWithValue("@category", category);
+            using MySqlDataReader rdr = (MySqlDataReader)await command.ExecuteReaderAsync();
+            if (await rdr.ReadAsync())
+            {
+                return rdr.GetFloat(0);
+            }
+
+            return -2;
+        }
+
+        public async IAsyncEnumerable<Place> GetRecommendedPlaces(string uname)
+        {
+            // Opening the connection
+            using MySqlConnection con = new MySqlConnection(connectionString);
+            await con.OpenAsync();
+            // Get all from the DB
+            using MySqlCommand command = new MySqlCommand("SELECT *  FROM (SELECT places.idPlaces ,AVG(stars) AS avgstars FROM places INNER JOIN reviews ON places.idPlaces = reviews.idPlaces WHERE category IN (SELECT category FROM (SELECT category, MAX(stars) FROM (SELECT category, COALESCE(AVG(stars),-1) AS stars FROM reviews JOIN places ON places.idPlaces = reviews.idPlaces WHERE username=@username GROUP BY category) AS tbl) AS tbl2) GROUP BY reviews.idPlaces) as tbl3 JOIN places ON tbl3.idPlaces = places.idPlaces WHERE avgstars >= ALL(SELECT AVG(stars) AS avgstars FROM places INNER JOIN reviews ON places.idPlaces = reviews.idPlaces WHERE category IN (SELECT category FROM (SELECT category, MAX(stars) FROM (SELECT category, COALESCE(AVG(stars),-1) AS stars FROM reviews JOIN places ON places.idPlaces = reviews.idPlaces WHERE username=@username GROUP BY category) AS tbl) AS tbl2) GROUP BY reviews.idPlaces)", con);
+            command.Parameters.AddWithValue("@username", uname);
+            using MySqlDataReader rdr = (MySqlDataReader)await command.ExecuteReaderAsync();
+            // Get and return the flightplans one by one
+            while (await rdr.ReadAsync())
+            {
+                // Get the object by his fields
+                int id = rdr.GetInt32("idPlaces");
+                string city = rdr.GetString("city");
+                string category = rdr.GetString("category");
+                string name = rdr.GetString("name");
+                string address = rdr.GetString("adress");
+                string directions = rdr.GetString("directions");
+                string phone = rdr.GetString("phone");
+                string url = rdr.GetString("url");
+                string hours = rdr.GetString("hours");
+                float latitude = rdr.GetFloat("latitude");
+                float longitude = rdr.GetFloat("longitude");
+                string description = rdr.GetString("description");
+                float stars = rdr.GetFloat("avgstars");
+
+                // Create it
+                Place place = new Place(id, city, category, name, address, directions, phone, url, hours,
+                    latitude, longitude, description, stars);
+
+                // Return it
+                yield return place;
+            }
+            yield break;
+        }
     }
 }

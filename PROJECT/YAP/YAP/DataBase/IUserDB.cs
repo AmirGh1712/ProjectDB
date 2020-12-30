@@ -13,5 +13,9 @@ namespace YAP.DataBase
         public Task<Boolean> CheckUsername(string uname);
 
         public Task<User> CheckUser(string uname, string password);
+
+        public Task<float> GetAvgCategory(string uname, string category);
+
+        public IAsyncEnumerable<Place> GetRecommendedPlaces(string uname);
     }
 }
