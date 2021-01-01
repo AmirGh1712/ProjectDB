@@ -35,13 +35,11 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
     <!-- Latest Leaftlet CSS -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
-          integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+          integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
           crossorigin="" />
     <!-- Make sure you put this AFTER Leaflet's CSS -->
-    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
-            integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
-            crossorigin=""></script>
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
 
     <meta charset="utf-8" />
     <title>YAP</title>
@@ -50,20 +48,9 @@
     <link href="css/DayModesVars.css" rel="stylesheet" type="text/css" />
     <link href="css/ListStyle.css" rel="stylesheet" type="text/css" />
 
-    <script src="js/list/flightsList.js"></script>
-    <script src="js/list/flightListRowStyler.js"></script>
-    <script src="js/list/flightsDivisor.js"></script>
-    <script src="js/list/flightListRowIdConverter.js"></script>
-    <script src="js/flightsGetter.js"></script>
-    <script src="js/flightEventHandler.js"></script>
-    <script src="js/ClientHandler.js"></script>
-    <script src="js/flightWrapper.js"></script>
-    <script src="js/ErrorHandler.js"></script>
-    <script src="js/flightDetails.js"></script>
-    <script src="js/RotatedMarker.js"></script>
-    <script src="js/map.js"></script>
     <script src="js/uploadFile.js"></script>
     <script src="js/try.js"></script>
+    <script src="js/main.js"></script>
 
 </head>
 <body>
@@ -96,13 +83,14 @@
 
     <div class="wrapper">
         <!-- map -->
-        <div id="mapid">
-            map
+        <div style="background-color:blue; height:600px">
+            <div id="mapid" style="width: 100%; height: 100%;"></div>
         </div>
+        <script src="js/main.js"></script>
         <!-- find -->
         <div id="lists">
             <!-- find parameters-->
-            <div class="attractions-list">
+            <div class="attractions-list" style="width: 100%; height: 50%;">
                 <table id="findParametersHeads" class="table no-margin table-head">
                     <thead>
                         <tr>
@@ -112,7 +100,7 @@
                         </tr>
                     </thead>
                 </table>
-                <div class="attractions-body">
+                <div class="attractions-body" >
                     <table id="parameters" class="table">
                         <tbody class="attractions-body">
                             <!--add here the parameters and find button-->
@@ -151,7 +139,7 @@
                 </div>
             </div>
             <!--attractions list-->
-            <div class="attractions-list">
+            <div class="attractions-list" style="width: 100%; height: 50%;">
                 <table id="atrractionsListHead" class="table table-head">
                     <thead>
                         <tr>
@@ -259,7 +247,8 @@
                                         <span class="fa fa-star checked"></span>
                                         <span class="fa fa-star"></span>
                                     </th>
-                                    <td><button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Rate</button>
+                                    <td>
+                                        <button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Rate</button>
                                     </td>
                                 </tr>
                             </table>
@@ -284,7 +273,7 @@
                     <input type="number" id="rating" name="rating" min="1" max="5"><br />
 
                     <label>
-                        <input type="checkbox" name="remember" style="margin-bottom:15px"> Post As Anonymous 
+                        <input type="checkbox" name="remember" style="margin-bottom:15px"> Post As Anonymous
                     </label><br />
 
                     <div class="clearfix">
