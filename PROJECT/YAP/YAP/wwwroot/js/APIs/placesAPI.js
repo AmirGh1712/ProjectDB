@@ -11,11 +11,11 @@ async function getPlaces(longitude, latitude, radius, stars, cats) {
     var starStr = ""
     var catStr = ""
     // if stars were given
-    if (stars == null) {
+    if (stars != "") {
         starStr = "&stars=" + stars;
     }
     // if categories were given,
-    if (cats == null) {
+    if (cats != []) {
         for (cat in cats) {
             catStr += "&cats=" + cat;
         }
