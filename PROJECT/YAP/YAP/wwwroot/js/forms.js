@@ -62,7 +62,6 @@ function activateParameterForm() {
     var park = document.forms["parameterForm"]["park"];
     var red = document.forms["parameterForm"]["red"];
     var other = document.forms["parameterForm"]["other"];
-
     // putting all the categories inside one variable
     var arr = new Array(see, sleep, buy, eat, drink, do1,
         go, dr, city, learn, silver, around, listing,
@@ -75,22 +74,21 @@ function activateParameterForm() {
     }
 
     // getting latitude and longitude from user, then activate changes on map
-
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(setPosition);
     } else {
         alert("Geolocation is not supported by this browser")
     }
-    alert(position.coords.latitude)
 }
 
 function setPosition(position) {
     // activates changes in the map by the parameters
     var latitude = position.coords.latitude;
     var longitude = position.coords.longitude;
-    var places = getPlaces(longitude, latitude, radius, stars, cats);
+    alert(longitude + " , " + latitude + " , " + radius + " , " + stars + " , " + cats);
+/*    var places = getPlaces(longitude, latitude, radius, stars, cats);
     var iconLoc = createIcon("https://image.flaticon.com/icons/png/512/12/12403.png");
     for (place in places) {
-        addMarker([latitude, longitude], map, iconLoc, () => changeMarkerSize(m, [80, 80], [40, 80]));
-    }
+        addMarker([place.latitude, place.longitude], map, iconLoc, () => changeMarkerSize(m, [80, 80], [40, 80]));
+    }*/
 }
