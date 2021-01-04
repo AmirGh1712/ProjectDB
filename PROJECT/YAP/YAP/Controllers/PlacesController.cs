@@ -26,7 +26,7 @@ namespace YAP.Controllers
         {
             Filter f = new Filter(latitude - radius, latitude + radius, longitude - radius, longitude + radius);
             f.stars = stars;
-            if (cats != null)
+            if (cats.Count > 0)
             {
                 f.cats = cats;
             }

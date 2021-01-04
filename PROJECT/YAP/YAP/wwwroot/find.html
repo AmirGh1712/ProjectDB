@@ -50,6 +50,7 @@
 
     <script src="js/uploadFile.js"></script>
     <script src="js/main.js"></script>
+    <script src="js/APIs/placesAPI.js"></script>
     <script src="js/forms.js"></script>
 </head>
 <body>
@@ -97,7 +98,7 @@
                     </thead>
                 </table>
                 <div class="attractions-body" >
-                    <form name="parameterForm" id="parameters" onsubmit="activateParameterForm()" class="table">
+                    <form name="parameterForm" id="parameters" class="table">
                         <tbody class="attractions-body">
                             <!--add here the parameters and find button-->
                             &nbsp;&nbsp;&nbsp;&nbsp;
@@ -131,7 +132,7 @@
                             <br />
                             <br />
                             &nbsp;&nbsp;
-                            <input type="submit" value="Submit">
+                            <input type="button" onclick="activateParameterForm()" value="Submit">
                         </tbody>
                     </form>
                 </div>
@@ -318,13 +319,6 @@
                 document.getElementById("dndImage").src = "assets/dnd-white.png";
             }
         })</script>
-
-    <!--call the start of the client-->
-    <script>
-    getReviews(5);
-    const c = new ClientHandler();
-        c.startClient();</script>
-    <script src="js/DragAndDrop.js"></script>
 </body>
 </html>
 

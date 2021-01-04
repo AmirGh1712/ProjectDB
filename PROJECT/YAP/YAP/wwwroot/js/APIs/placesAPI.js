@@ -7,7 +7,7 @@
  * @param {any} stars
  * @param {any} cats
  *********************************************************************/
-async function getPlaces(longitude, latitude, radius, stars, cats) {
+async function getPlaces(longitude, latitude, radius, stars, cats, todo) {
     var starStr = ""
     var catStr = ""
     // if stars were given
@@ -25,7 +25,8 @@ async function getPlaces(longitude, latitude, radius, stars, cats) {
         type: "get", //send it through get method
 
         success: function (data) {
-            return data;
+            todo(data);
+            //return data;
         },
         error: function (xhr) {
             // does nothing

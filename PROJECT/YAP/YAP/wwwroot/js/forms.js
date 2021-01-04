@@ -86,9 +86,18 @@ function setPosition(position) {
     var latitude = position.coords.latitude;
     var longitude = position.coords.longitude;
     alert(longitude + " , " + latitude + " , " + radius + " , " + stars + " , " + cats);
-/*    var places = getPlaces(longitude, latitude, radius, stars, cats);
+    var places = getPlaces(longitude, latitude, radius, stars, cats, handlePlaces);
+    
+    //console.log(places);
+    
+}
+
+function handlePlaces(places) {
     var iconLoc = createIcon("https://image.flaticon.com/icons/png/512/12/12403.png");
-    for (place in places) {
-        addMarker([place.latitude, place.longitude], map, iconLoc, () => changeMarkerSize(m, [80, 80], [40, 80]));
-    }*/
+    var markers = []
+    for (var i in places) {
+        place = places[i];
+        //console.log(place);
+        markers[i] = addMarker([place.latitude, place.longitude], map, iconLoc, () => changeMarkerSize(markers[i], [80, 80], [40, 80]));
+    }
 }
