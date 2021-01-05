@@ -1,6 +1,7 @@
 ﻿/*********************************************************************
  * Checks if the user exists.
- * Returns 1 if it is and - if it doesn't.
+ * If exists, returns a json object of a user.
+ * If doesn't exists, returns an empty json object.
  * @param {any} username
  * @param {any} password
  *********************************************************************/
@@ -52,7 +53,7 @@ async function createUser(username, password, fullname) {
  * @param {any} username
  * @param {any} category
  *********************************************************************/
-async function getAverageSCategoryReview(username, category) {
+async function getAverageCategoryReview(username, category) {
     await $.ajax({
         url: "api/User" + "?username=" + username + "&category=" + category,
         type: "get", //send it through get method

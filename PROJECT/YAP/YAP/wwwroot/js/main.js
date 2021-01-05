@@ -74,10 +74,10 @@ function deleteMarker(marker, mymap) {
 var map = setUp('mapid')
 
 // Creates an icon
-var icon = createIcon("https://icons-for-free.com/iconfiles/png/512/marker-131994967950423839.png")
+//var icon = createIcon("https://icons-for-free.com/iconfiles/png/512/marker-131994967950423839.png")
 
 // Adds a marker
-var m = addMarker([0,0], map, icon, () => changeMarkerSize(m, [80, 80], [40, 80]))
+//var m = addMarker([0,0], map, icon, () => changeMarkerSize(m, [80, 80], [40, 80]))
 
 // changes the marker size
 // changeMarkerSize(m, [80, 80], [40, 80])
