@@ -1,10 +1,14 @@
 ﻿var cats = [];
 var radius = "";
 var stars = "";
-var placeToMarker = {}
 var categoryToIcon = {}
 var user;
 var currentReviewLocation;
+var latitude;
+var longitude;
+var currentPlaces = [];
+var currentPlace;
+
 
 // setting icons
 categoryToIcon["default"] = createIcon("https://image.flaticon.com/icons/png/512/12/12403.png");
@@ -21,13 +25,14 @@ categoryToIcon["park"] = createIcon("https://img.icons8.com/android/24/000000/pa
  * Adds the user to the database.
  *********************************************************************/
 function activateSignupForm() {
-    location.replace();
-    alert("logged in Successfuly!");
     var fullname = document.forms["signupForm"]["fullname"].value;
     var username = document.forms["signupForm"]["username"].value;
     var password = document.forms["signupForm"]["password"].value;
-    var result = createUser(fullname, username, password);
-    if (result == 1) {
+    createUser(username, password, fullname, handleactivateSignupForm);
+}
+
+function handleactivateSignupForm(result, username, password) {
+    if (result) {
         alert("Successfuly signed up!")
         activateLogin(username, password);
     }
@@ -54,13 +59,14 @@ function activateLoginForm() {
  * @param {any} password - the password given
  *********************************************************************/
 function activateLogin(username, password) {
-    user = doesUserExist(username, password);
+    doesUserExist(username, password, handleUserLogin);
+}
+function handleUserLogin(user) {
     if (user) {
         location.replace("profile.html");
-        alert("logged in Successfuly!");
     }
     else {
-        alert("Username or Password incorrect!");
+        alert("Username or Password are incorrect!");
     }
 }
 
@@ -102,6 +108,7 @@ function activateParameterForm() {
         go, dr, city, learn, silver, around, listing,
         view, vicinity, mq, island, park, red, other);
     var i;
+    cats = [];
     for (i = 0; i < arr.length; i++) {
         if (arr[i].checked == true) {
             cats.push(arr[i].value)
@@ -123,10 +130,30 @@ function activateParameterForm() {
  *********************************************************************/
 function setPosition(position) {
     // activates changes in the map by the parameters
-    var latitude = position.coords.latitude;
-    var longitude = position.coords.longitude;
-    radius = getDistanceFromLatLonInKm(latitude, longitude, latitude + radius, longitude)
+    latitude = position.coords.latitude;
+    longitude = position.coords.longitude;
+    // radius = getDistanceFromLatLonInKm(latitude, longitude, latitude + radius, longitude)
+    radius = radius / 111;
     getPlaces(longitude, latitude, radius, stars, cats, handlePlaces);
+}
+
+/*********************************************************************
+ * Adds a marker to one location given and adds kilometers.
+ * @param {any} place - a json object of a place.
+ *********************************************************************/
+function onePlace(place) {
+    if (place.category && (place.category in categoryToIcon)) {
+        place.marker = addMarker([place.latitude, place.longitude],
+            map, categoryToIcon[place.category],
+            () => whenClick(place));
+    } else {
+        place.marker = addMarker([place.latitude, place.longitude],
+            map, categoryToIcon["default"],
+            () => whenClick(place));
+    }
+    // adds kilometers to the places that reperesent the distance from the user in kilometers
+    place.kilometers = getDistanceFromLatLonInKm(place.latitude, place.longitude, latitude, longitude)
+    currentPlaces.push(place);
 }
 
 /*********************************************************************
@@ -140,33 +167,22 @@ function handlePlaces(places) {
     for (var i in places) {
         // for each place, place on map
         place = places[i];
-        if (place.category && (place.category in categoryToIcon)) {
-            placeToMarker[place] = addMarker([place.latitude, place.longitude],
-                map, categoryToIcon[place.category],
-                () => whenClick(place));
-        } else {
-            placeToMarker[place] = addMarker([place.latitude, place.longitude],
-                map, categoryToIcon["default"],
-                () => whenClick(place));
-        }
-        placeToMarker[place] = addMarker([place.latitude, place.longitude], map, iconDefault,
-            () => whenClick(place));
-        // adds kilometers to the places that reperesent the distance from the user in kilometers
-        place.kilometers = getDistanceFromLatLonInKm(place.latitude, place.longitude, latitude, longitude)
+        onePlace(place)
     }
     // sorts the places by distance in kilometers
-    places.sort(function (a, b) {
-        return (a.kilometers < b.kilometers) ? 1 : ((a.kilometers > b.kilometers) ? -1 : 0);
+    currentPlaces.sort(function (a, b) {
+        return (a.kilometers > b.kilometers) ? 1 : ((a.kilometers < b.kilometers) ? -1 : 0);
     });
     // place the places on the table
     var j = 0;
-    for (var i in places) {
+    document.getElementById("attractionsTable").innerHTML = "<tr><th>Name</th><th>Radius</th><th>Info</th><th>Rating</th><th>Rate</th></tr>"
+    for (var i in currentPlaces) {
         if (j >= 50) {
             break;
         }
         // for each place, place on map
-        place = places[i];
-        setPlacesTable(place);
+        place = currentPlaces[i];
+        setPlacesTable(place, i);
         j++;
     }
 }
@@ -205,30 +221,33 @@ function deg2rad(deg) {
  * Adds the place to the places table.
  * @param {any} place - a json object of a place.
  *********************************************************************/
-function setPlacesTables(place) {
-    document.getElementById("attractions-body").innerHTML = ""
+function setPlacesTable(place, index) {
     // get stars
-    stars = ["", "", "", "", ""]
+    var rating;
     if (place.stars) {
+        stars = ["", "", "", "", ""]
         for (var i = 0; i < 5; i++) {
             if (place.stars > i + 0.5) {
-                stars[i] = "checked";
+                stars[i] = " checked";
             }
         }
+        rating = "<span class=\"fa fa-star" + stars[0] + "\"></span>" +
+            "<span class=\"fa fa-star" + stars[1] + "\"></span>" +
+            "<span class=\"fa fa-star" + stars[2] + "\"></span>" +
+            "<span class=\"fa fa-star" + stars[3] + "\"></span>" +
+            "<span class=\"fa fa-star" + stars[4] + "\"></span>";
+    } else {
+        rating = "No Rating";
     }
     // adding to table
-    document.getElementById("attractions-body").innerHTML +=
+    document.getElementById("attractionsTable").innerHTML +=
         "<tr><td>" + place.name +
-        "</td><td>" + place.kilometers + " km" +
-    "</td><td>" + "<button onclick=\"whenClick("+place+")\" style=\"width:auto;\">More Info</button>" +
+        "</td><td>" + Number(place.kilometers).toFixed(1) + " km" +
+        "</td><td>" + "<button onclick=\"fromIndexToPlaceClick("+ index +")\" style=\"width:auto;\">More Info</button>" +
         "</td><th>" +
-            "<span class=\"fa fa - star " + stars[0] + " \"></span>" +
-            "<span class=\"fa fa - star " + stars[1] + " \"></span>" +
-            "<span class=\"fa fa - star " + stars[2] + " \"></span>" +
-            "<span class=\"fa fa - star " + stars[3] + " \"></span>" +
-            "<span class=\"fa fa - star " + stars[4] + " \"></span>" +
-        "</th></td>" +
-            "<button onclick=\"document.getElementById('id01').style.display='block'; saveLocationRating("+ place +")\" style=\"width:auto;\">Rate</button>"
+            rating +
+        "</th><td>" +
+            "<button onclick=\"document.getElementById('id01').style.display='block'; fromIndexToPlaceRating("+ index +")\" style=\"width:auto;\">Rate</button>"
         "</td></tr>"
 }
 
@@ -275,11 +294,34 @@ function setInfo(place) {
 
 /*********************************************************************
  * When clicking 
- * @param {any} place - a json object of a place.
+ * @param {any} index - the index of the place.
+ *********************************************************************/
+function fromIndexToPlaceClick(index) {
+    place = currentPlaces[index];
+    whenClick(place)
+}
+
+/*********************************************************************
+ * @param {any} index - the index of the place we want to save the
+ *                      rating of.
+ *********************************************************************/
+function fromIndexToPlaceRating(index) {
+    place = currentPlaces[index];
+    saveLocationRating(place)
+}
+
+/*********************************************************************
+ * When clicking 
+ * @param {any} place - the index of the place.
  *********************************************************************/
 function whenClick(place) {
+    // decrease the last place
+    if (currentPlace) {
+        changeMarkerSize(currentPlace.marker, [40, 40], [20, 40]);
+    }
+    currentPlace = place;
     // increase the size
-    changeMarkerSize(placeToMarker[place], [80, 80], [40, 80]);
+    changeMarkerSize(place.marker, [80, 80], [40, 80]);
     // adds info
     setInfo(place);
 }
@@ -287,17 +329,23 @@ function whenClick(place) {
  * Deletes the icons that are currently on the map
  *********************************************************************/
 function deleteCurrentIcons() {
-    for (var key in placeToMarker) {
-        deleteMarker(placeToMarker[key], map);
+    for (var i in currentPlaces) {
+        deleteMarker(currentPlaces[i].marker, map);
     }
-    placeToMarker = {}
+    currentPlaces = [];
+    if (currentPlace) {
+        changeMarkerSize(currentPlace.marker, [40, 40], [20, 40]);
+    }
+    currentPlace = null;
+    document.getElementById("AttractionDetailsText").innerHTML = "";
 }
 
 /*********************************************************************
  * Saves the location in case we submit a rating. This will be called
  * if we click on the "Rate" option, so that when we click submit we
  * will know the place we are currently rating.
- * @param {any} place- a json object of a place.
+ * @param {any} index - the index of the place we want to save the
+ *                      rating of.
  *********************************************************************/
 function saveLocationRating(place) {
     currentReviewLocation = place;
@@ -311,7 +359,7 @@ function addRating() {
     var review = document.forms["reviewForm"]["review"].value;
     var stars = document.forms["reviewForm"]["rating"].value;
     if (stars < 0 || stars > 5) {
-        alart("Stars must be between 0 and 5")
+        alert("Stars must be between 0 and 5")
         return;
     }
     addReview(currentReviewLocation.id, user.username, review, stars, null);

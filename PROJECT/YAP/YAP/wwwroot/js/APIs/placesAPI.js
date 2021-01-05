@@ -16,8 +16,8 @@ async function getPlaces(longitude, latitude, radius, stars, cats, todo) {
     }
     // if categories were given,
     if (cats != []) {
-        for (cat in cats) {
-            catStr += "&cats=" + cat;
+        for (var i in cats) {
+            catStr += "&cats=" + cats[i];
         }
     }
     await $.ajax({

@@ -5,7 +5,7 @@
  * @param {any} username
  * @param {any} password
  *********************************************************************/
-async function doesUserExist(username, password) {
+async function doesUserExist(username, password, todo) {
     var obj = { username: username, password: password };
     var myJSON = JSON.stringify(obj);
     await $.ajax({
@@ -15,7 +15,7 @@ async function doesUserExist(username, password) {
         url: "api/User/check",
 
         success: function (data) {
-            return data;
+            todo(data);
         },
         error: function (xhr) {
             // does nothing
@@ -30,7 +30,7 @@ async function doesUserExist(username, password) {
  * @param {any} password
  * @param {any} fullname
  *********************************************************************/
-async function createUser(username, password, fullname) {
+async function createUser(username, password, fullname, todo) {
     var obj = { username: username, password: password, fullname: fullname };
     var myJSON = JSON.stringify(obj);
     await $.ajax({
@@ -40,10 +40,10 @@ async function createUser(username, password, fullname) {
         url: "api/User",
 
         success: function (data) {
-            return data;
+            todo(data, username, password);
         },
         error: function (xhr) {
-            // does nothing
+            alert("" + xhr)
         }
     });
 }

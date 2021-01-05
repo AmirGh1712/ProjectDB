@@ -58,7 +58,7 @@ namespace YAP.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] User user)
+        public async Task<ActionResult<bool>> Post([FromBody] User user)
         //public async Task<IActionResult> Post([FromBody] string h)
         {
             //return Ok();
@@ -74,7 +74,7 @@ namespace YAP.Controllers
                         return BadRequest("username already exists in the system");
                     }
                     await userDB.AddUser(user);
-                    return Ok();
+                    return Ok(true);
                 }
 
                 return BadRequest("Property can't be null");
