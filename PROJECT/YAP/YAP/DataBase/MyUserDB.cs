@@ -59,7 +59,7 @@ namespace YAP.DataBase
             using MySqlConnection con = new MySqlConnection(connectionString);
             await con.OpenAsync();
             // Get from the DB
-            using MySqlCommand command = new MySqlCommand("SELECT * FROM users WHERE username = @username AND password = @password", con);
+            using MySqlCommand command = new MySqlCommand("SELECT * FROM users WHERE username = BINARY @username AND password = BINARY @password", con);
             command.Parameters.AddWithValue("@username", uname);
             command.Parameters.AddWithValue("@password", password);
             using MySqlDataReader rdr = (MySqlDataReader)await command.ExecuteReaderAsync();
@@ -80,7 +80,7 @@ namespace YAP.DataBase
             using MySqlConnection con = new MySqlConnection(connectionString);
             await con.OpenAsync();
             // Get from the DB
-            using MySqlCommand command = new MySqlCommand("SELECT * FROM users WHERE username = @username", con);
+            using MySqlCommand command = new MySqlCommand("SELECT * FROM users WHERE username = BINARY @username", con);
             command.Parameters.AddWithValue("@username", uname);
             using MySqlDataReader rdr = (MySqlDataReader)await command.ExecuteReaderAsync();
             return rdr.HasRows;
@@ -94,7 +94,7 @@ namespace YAP.DataBase
             await con.OpenAsync();
             // Get from the DB
             using MySqlCommand command = new MySqlCommand("SELECT COALESCE(AVG(stars), -1) FROM reviews JOIN places ON " +
-                "places.idPlaces = reviews.idPlaces WHERE username=@username AND category=@category", con);
+                "places.idPlaces = reviews.idPlaces WHERE username=BINARY @username AND category=@category", con);
             command.Parameters.AddWithValue("@username", uname);
             command.Parameters.AddWithValue("@category", category);
             using MySqlDataReader rdr = (MySqlDataReader)await command.ExecuteReaderAsync();
@@ -112,7 +112,7 @@ namespace YAP.DataBase
             using MySqlConnection con = new MySqlConnection(connectionString);
             await con.OpenAsync();
             // Get all from the DB
-            using MySqlCommand command = new MySqlCommand("SELECT *  FROM (SELECT places.idPlaces ,AVG(stars) AS avgstars FROM places INNER JOIN reviews ON places.idPlaces = reviews.idPlaces WHERE category IN (SELECT category FROM (SELECT category, MAX(stars) FROM (SELECT category, COALESCE(AVG(stars),-1) AS stars FROM reviews JOIN places ON places.idPlaces = reviews.idPlaces WHERE username=@username GROUP BY category) AS tbl) AS tbl2) GROUP BY reviews.idPlaces) as tbl3 JOIN places ON tbl3.idPlaces = places.idPlaces WHERE avgstars >= ALL(SELECT AVG(stars) AS avgstars FROM places INNER JOIN reviews ON places.idPlaces = reviews.idPlaces WHERE category IN (SELECT category FROM (SELECT category, MAX(stars) FROM (SELECT category, COALESCE(AVG(stars),-1) AS stars FROM reviews JOIN places ON places.idPlaces = reviews.idPlaces WHERE username=@username GROUP BY category) AS tbl) AS tbl2) GROUP BY reviews.idPlaces)", con);
+            using MySqlCommand command = new MySqlCommand("SELECT *  FROM (SELECT places.idPlaces ,AVG(stars) AS avgstars FROM places INNER JOIN reviews ON places.idPlaces = reviews.idPlaces WHERE category IN (SELECT category FROM (SELECT category, MAX(stars) FROM (SELECT category, COALESCE(AVG(stars),-1) AS stars FROM reviews JOIN places ON places.idPlaces = reviews.idPlaces WHERE username=BINARY @username GROUP BY category) AS tbl) AS tbl2) GROUP BY reviews.idPlaces) as tbl3 JOIN places ON tbl3.idPlaces = places.idPlaces WHERE avgstars >= ALL(SELECT AVG(stars) AS avgstars FROM places INNER JOIN reviews ON places.idPlaces = reviews.idPlaces WHERE category IN (SELECT category FROM (SELECT category, MAX(stars) FROM (SELECT category, COALESCE(AVG(stars),-1) AS stars FROM reviews JOIN places ON places.idPlaces = reviews.idPlaces WHERE username=BINARY @username GROUP BY category) AS tbl) AS tbl2) GROUP BY reviews.idPlaces)", con);
             command.Parameters.AddWithValue("@username", uname);
             using MySqlDataReader rdr = (MySqlDataReader)await command.ExecuteReaderAsync();
             // Get and return the flightplans one by one

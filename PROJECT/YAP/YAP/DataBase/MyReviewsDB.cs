@@ -56,6 +56,34 @@ namespace YAP.DataBase
             }
         }
 
+        public async IAsyncEnumerable<Review> GetReviewsByUser(string uname)
+        {
+            // Opening the connection
+            using MySqlConnection con = new MySqlConnection(connectionString);
+            await con.OpenAsync();
+            // Get all from the DB
+            using MySqlCommand command = new MySqlCommand("SELECT * FROM reviews WHERE username = BINARY @username ORDER BY date DESC", con);
+            command.Parameters.AddWithValue("@username", uname);
+            using MySqlDataReader rdr = (MySqlDataReader)await command.ExecuteReaderAsync();
+            // Get and return the flightplans one by one
+            while (await rdr.ReadAsync())
+            {
+                // Get the object by his fields
+                string username = rdr.GetString(0);
+                int idPlaces = rdr.GetInt32(1);
+                string text = rdr.GetString(2);
+                int stars = rdr.GetInt32(3);
+                DateTime date = rdr.GetDateTime(4);
+
+                // Create it
+                Review review = new Review(idPlaces, username, text, stars, date);
+
+                // Return it
+                yield return review;
+            }
+            yield break; throw new NotImplementedException();
+        }
+
         public async IAsyncEnumerable<Review> GetReviewsOnPlace(int placeid)
         {
             // Opening the connection

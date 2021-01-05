@@ -43,7 +43,7 @@ async function createUser(username, password, fullname, todo) {
             todo(data, username, password);
         },
         error: function (xhr) {
-            alert("" + xhr)
+            alert(xhr.responseText)
         }
     });
 }

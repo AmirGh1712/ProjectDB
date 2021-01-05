@@ -103,36 +103,40 @@
                             <!--add here the parameters and find button-->
                             &nbsp;&nbsp;&nbsp;&nbsp;
                             <label class="container">
-                                <input type="checkbox" name="see" value="see"> See
-                                <input type="checkbox" name="sleep" value="sleep"> Sleep
-                                <input type="checkbox" name="buy" value="buy"> Buy
-                                <input type="checkbox" name="eat" value="eat"> Eat
-                                <input type="checkbox" name="drink" value="drink"> Drink
-                                <input type="checkbox" name="do" value="do"> Do
-                                <input type="checkbox" name="go" value="go"> Go
-                                <input type="checkbox" name="diplomatic-representation" value="diplomatic-representation"> Diplomatic Representation
-                                <input type="checkbox" name="city" value="city"> City
-                                <input type="checkbox" name="learn" value="learn"> Learn
-                                <input type="checkbox" name="silver" value="silver"> Silver
-                                <input type="checkbox" name="around" value="around"> Around
-                                <input type="checkbox" name="listing" value="listing"> Listing
-                                <input type="checkbox" name="view" value="view"> View
-                                <input type="checkbox" name="vicinity" value="vicinity"> Vicinity
-                                <input type="checkbox" name="mediumaquamarine" value="mediumaquamarine"> Mediumaquamarine
-                                <input type="checkbox" name="island" value="island"> Island
-                                <input type="checkbox" name="park" value="park"> Park
-                                <input type="checkbox" name="red" value="red"> Red
-                                <input type="checkbox" name="other" value="other"> Other
+                                <input type="checkbox" id="see" name="see" value="see"> See
+                                <input type="checkbox" id="sleep" name="sleep" value="sleep"> Sleep
+                                <input type="checkbox" id="buy" name="buy" value="buy"> Buy
+                                <input type="checkbox" id="eat" name="eat" value="eat"> Eat
+                                <input type="checkbox" id="drink" name="drink" value="drink"> Drink
+                                <input type="checkbox" id="do" name="do" value="do"> Do
+                                <input type="checkbox" id="go" name="go" value="go"> Go
+                                <input type="checkbox" id="dr" name="diplomatic-representation" value="diplomatic-representation"> Diplomatic Representation
+                                <input type="checkbox" id="city" name="city" value="city"> City
+                                <input type="checkbox" id="learn" name="learn" value="learn"> Learn
+                                <input type="checkbox" id="silver" name="silver" value="silver"> Silver
+                                <input type="checkbox" id="around" name="around" value="around"> Around
+                                <input type="checkbox" id="listing" name="listing" value="listing"> Listing
+                                <input type="checkbox" id="view" name="view" value="view"> View
+                                <input type="checkbox" id="vicinity" name="vicinity" value="vicinity"> Vicinity
+                                <input type="checkbox" id="mq" name="mediumaquamarine" value="mediumaquamarine"> Mediumaquamarine
+                                <input type="checkbox" id="island" name="island" value="island"> Island
+                                <input type="checkbox" id="park" name="park" value="park"> Park
+                                <input type="checkbox" id="red" name="red" value="red"> Red
+                                <input type="checkbox" id="other" name="other" value="other"> Other
                             </label>
+                            &nbsp;&nbsp;
+                            <input type="button" onclick="checkAll()" value="Check All">
+                            <br />
+                            <br />
                             &nbsp;&nbsp;
                             <label for="radius">Radius:&nbsp;&nbsp;</label>
                             <input type="number" id="radius" name="radius" min="1" max="100">
                             <label for="radius">Stars:&nbsp;&nbsp;</label>
                             <input type="number" id="stars" name="stars" min="0" max="5">
                             <br />
-                            <br />
                             &nbsp;&nbsp;
-                            <input type="button" onclick="activateParameterForm()" value="Submit">
+                            <input type="button" onclick="activateParameterForm()" style="background-color: #4CAF50;
+                                                font-size:16px; border: none; padding: 5px; color: white; width:100%;" value="Submit">
                         </tbody>
                     </form>
                 </div>

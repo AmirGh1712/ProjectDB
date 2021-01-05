@@ -71,6 +71,7 @@
     align-items: stretch;
     grid-gap: 0;
     border: 3px solid var(--list-border-color);
+    font-size: 10px;
 }
 
 .attractions-data {

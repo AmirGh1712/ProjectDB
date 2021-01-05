@@ -33,6 +33,20 @@ namespace YAP.Controllers
             return Ok(reviews);
         }
 
+        [Route("user")]
+        [HttpGet]
+        public async Task<ActionResult<IList<Review>>> Get(string uname)
+        {
+            IList<Review> reviews = new List<Review>();
+
+            await foreach (Review r in reviewsDB.GetReviewsByUser(uname))
+            {
+                reviews.Add(r);
+            }
+
+            return Ok(reviews);
+        }
+
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] Review review)
         //public async Task<IActionResult> Post([FromBody] string h)

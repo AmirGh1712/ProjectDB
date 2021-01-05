@@ -28,7 +28,15 @@ function activateSignupForm() {
     var fullname = document.forms["signupForm"]["fullname"].value;
     var username = document.forms["signupForm"]["username"].value;
     var password = document.forms["signupForm"]["password"].value;
-    createUser(username, password, fullname, handleactivateSignupForm);
+    if (fullname.length < 3) {
+        alert("Full Name must be at least 3 characters");
+    } else if (username.length < 3) {
+        alert("Username must be at least 3 characters");
+    } else if (password.length < 3) {
+        alert("Password must be at least 3 characters");
+    } else {
+        createUser(username, password, fullname, handleactivateSignupForm);
+    }
 }
 
 function handleactivateSignupForm(result, username, password) {
@@ -61,8 +69,9 @@ function activateLoginForm() {
 function activateLogin(username, password) {
     doesUserExist(username, password, handleUserLogin);
 }
-function handleUserLogin(user) {
-    if (user) {
+function handleUserLogin(myUser) {
+    if (myUser) {
+        user = myUser;
         location.replace("profile.html");
     }
     else {
@@ -366,5 +375,29 @@ function addRating() {
 }
 
 function setProfile() {
+    document.getElementById("heyMessage").innerHTML = "Hey " + user.fullname + "!";
+    document.getElementById("profileInfo").innerHTML = "Your Average Ratings: <br/>";
+}
 
+function checkAll() {
+    document.getElementById("see").checked = true;
+    document.getElementById("sleep").checked = true;
+    document.getElementById("buy").checked = true;
+    document.getElementById("eat").checked = true;
+    document.getElementById("drink").checked = true;
+    document.getElementById("do").checked = true;
+    document.getElementById("go").checked = true;
+    document.getElementById("city").checked = true;
+    document.getElementById("dr").checked = true;
+    document.getElementById("learn").checked = true;
+    document.getElementById("silver").checked = true;
+    document.getElementById("around").checked = true;
+    document.getElementById("listing").checked = true;
+    document.getElementById("view").checked = true;
+    document.getElementById("vicinity").checked = true;
+    document.getElementById("mq").checked = true;
+    document.getElementById("island").checked = true;
+    document.getElementById("park").checked = true;
+    document.getElementById("red").checked = true;
+    document.getElementById("other").checked = true;
 }
