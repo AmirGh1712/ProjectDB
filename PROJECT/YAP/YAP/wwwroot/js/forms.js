@@ -4,6 +4,7 @@ var stars = "";
 var placeToMarker = {}
 var categoryToIcon = {}
 var user;
+var currentReviewLocation;
 
 // setting icons
 categoryToIcon["default"] = createIcon("https://image.flaticon.com/icons/png/512/12/12403.png");
@@ -227,7 +228,7 @@ function setPlacesTables(place) {
             "<span class=\"fa fa - star " + stars[3] + " \"></span>" +
             "<span class=\"fa fa - star " + stars[4] + " \"></span>" +
         "</th></td>" +
-            "<button onclick=\"document.getElementById('id01').style.display='block'\" style=\"width:auto;\">Rate</button>"
+            "<button onclick=\"document.getElementById('id01').style.display='block'; saveLocationRating("+ place +")\" style=\"width:auto;\">Rate</button>"
         "</td></tr>"
 }
 
@@ -293,9 +294,29 @@ function deleteCurrentIcons() {
 }
 
 /*********************************************************************
+ * Saves the location in case we submit a rating. This will be called
+ * if we click on the "Rate" option, so that when we click submit we
+ * will know the place we are currently rating.
+ * @param {any} place- a json object of a place.
+ *********************************************************************/
+function saveLocationRating(place) {
+    currentReviewLocation = place;
+}
+
+/*********************************************************************
  * Adds a rating to the place.
  * @param {any} place - a json object of a place.
  *********************************************************************/
-function addRating(place) {
+function addRating() {
+    var review = document.forms["reviewForm"]["review"].value;
+    var stars = document.forms["reviewForm"]["rating"].value;
+    if (stars < 0 || stars > 5) {
+        alart("Stars must be between 0 and 5")
+        return;
+    }
+    addReview(currentReviewLocation.id, user.username, review, stars, null);
+}
+
+function setProfile() {
 
 }

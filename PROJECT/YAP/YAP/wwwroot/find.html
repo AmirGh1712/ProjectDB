@@ -168,26 +168,21 @@
         </div>
         <div id="id01" class="modal">
             <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
-            <form class="modal-content" action="/action_page.php">
+            <form name="reviewForm" class="modal-content">
                 <div class="container">
                     <h1>Review</h1><br />
                     <p>Please fill in this form to leave a review.</p><br />
                     <hr>
-                    <label for="email"><b>Review:</b></label><br />
+                    <label for="review"><b>Review:</b></label><br />
                     <textarea id="review" name="review" rows="4" cols="50">
-                    Enter Review
                     </textarea><br />
 
-                    <label for="psw"><b>Rating:</b></label><br />
-                    <input type="number" id="rating" name="rating" min="1" max="5"><br />
-
-                    <label>
-                        <input type="checkbox" name="remember" style="margin-bottom:15px"> Post As Anonymous
-                    </label><br />
+                    <label for="rating"><b>Stars(between 0 and 5):</b></label><br />
+                    <input type="number" id="rating" name="rating" min="0" max="5"><br />
 
                     <div class="clearfix">
                         <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
-                        <button type="submit" class="signupbtn">Submit</button>
+                        <button type="button" class="signupbtn" onclick="addRating()">Submit</button>
                     </div>
                 </div>
             </form>
@@ -208,9 +203,7 @@
                 </label>
                 <label id="dayModeButton" for="switchBtn">light mode</label>
             </div>
-
         </div>
-
     </div>
 
 
