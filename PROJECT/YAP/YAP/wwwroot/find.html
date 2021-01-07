@@ -7,7 +7,7 @@
     }
     table {
         font-family: arial, sans-serif;
-        font-size: 10px;
+        font-size: 12px;
         border-collapse: collapse;
         width: 100%;
     }
@@ -75,6 +75,9 @@
             <li class="nav-item">
                 <a class="nav-link" href="profile.html">Profile</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="indexWrong.html">Logout</a>
+            </li>
         </ul>
     </nav>
 
@@ -92,7 +95,10 @@
                     <thead>
                         <tr>
                             <th scope="col" class="attractions-data">
-                                Find By Parameters
+                                Find By Parameters &nbsp;&nbsp;
+                                <input type="button" onclick="" style="background-color: #FFD700;
+                                                font-size:16px; border: none; padding: 5px;
+                                                float: right; right:40px; width:50%;" value="Show Recommended">
                             </th>
                         </tr>
                     </thead>
@@ -136,7 +142,7 @@
                             <br />
                             &nbsp;&nbsp;
                             <input type="button" onclick="activateParameterForm()" style="background-color: #4CAF50;
-                                                font-size:16px; border: none; padding: 5px; color: white; width:100%;" value="Submit">
+                                                font-size:16px; border: none; padding: 5px; color: white; width:100%;" value="Find">
                         </tbody>
                     </form>
                 </div>

@@ -2,7 +2,6 @@
 var radius = "";
 var stars = "";
 var categoryToIcon = {}
-var user;
 var currentReviewLocation;
 var latitude;
 var longitude;
@@ -71,7 +70,7 @@ function activateLogin(username, password) {
 }
 function handleUserLogin(myUser) {
     if (myUser) {
-        user = myUser;
+        localStorage.setItem("user", myUser);
         location.replace("profile.html");
     }
     else {
@@ -371,11 +370,11 @@ function addRating() {
         alert("Stars must be between 0 and 5")
         return;
     }
-    addReview(currentReviewLocation.id, user.username, review, stars, null);
+    addReview(currentReviewLocation.id, localStorage.getItem("user").username, review, stars, null);
 }
 
 function setProfile() {
-    document.getElementById("heyMessage").innerHTML = "Hey " + user.fullname + "!";
+    document.getElementById("heyMessage").innerHTML = "Hey " + localStorage.getItem("user").fullname + "!";
     document.getElementById("profileInfo").innerHTML = "Your Average Ratings: <br/>";
 }
 

@@ -76,11 +76,13 @@
 
 .attractions-data {
     width: 88%;
+    font-size: 16px;
 }
 
 .table {
     margin-bottom: 0;
     color: var(--text-color);
+    font-size: 14px;
 }
 
 .table-head {
