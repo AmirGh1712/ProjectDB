@@ -6,8 +6,8 @@
  * @param {any} stars
  * @param {any} date
  *********************************************************************/
-async function addReview(idPlaces, username, review, stars, date) {
-    var obj = { idPlaces: idPlaces, username: username, review: review, stars: stars, date: date };
+async function addReview(idPlaces, username, review, stars) {
+    var obj = { idPlaces: idPlaces, username: username, review: review, stars: stars};
     var myJSON = JSON.stringify(obj);
     await $.ajax({
         type: "post", //send it through post method
@@ -16,7 +16,25 @@ async function addReview(idPlaces, username, review, stars, date) {
         url: "api/Reviews",
 
         success: function (data) {
-            return data;
+            alert("Rating was added! Thank you.");
+        },
+        error: function (xhr) {
+            alert(xhr.responseText)
+        }
+    });
+}
+
+/*********************************************************************
+ * Gets the reviews of a specific place.
+ * @param {any} id - the place id
+ *********************************************************************/
+async function getReviewsOfPlace(id, todo) {
+    await $.ajax({
+        url: "api/Reviews" + "?id=" + id,
+        type: "get", //send it through get method
+
+        success: function (data) {
+            todo(data);
         },
         error: function (xhr) {
             // does nothing
@@ -25,16 +43,16 @@ async function addReview(idPlaces, username, review, stars, date) {
 }
 
 /*********************************************************************
- * Gets the reviews of a specific place.
- * @param {any} id
+ * Gets the reviews that a user wrote.
+ * @param {any} username - the username.
  *********************************************************************/
-async function getReviews(id) {
+async function getReviewsOfUser(username, todo) {
     await $.ajax({
-        url: "api/Reviews" + "?id=" + id,
+        url: "api/Reviews/user" + "?uname=" + username,
         type: "get", //send it through get method
 
         success: function (data) {
-            return data;
+            todo(data);
         },
         error: function (xhr) {
             // does nothing

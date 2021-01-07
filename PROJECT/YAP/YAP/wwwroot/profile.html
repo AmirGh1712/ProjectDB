@@ -1,4 +1,14 @@
 ﻿<html>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+    .userProfile {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+    .checked {
+        color: orange;
+    }
+</style>
 <head>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
@@ -16,7 +26,7 @@
     <title>YAP</title>
     <link href="css/infoStyle.css" rel="stylesheet" type="text/css" />
 
-    <script src="js/main.js"></script>
+    <script src="js/APIs/reviewsAPI.js"></script>
     <script src="js/forms.js"></script>
 </head>
 <body>
@@ -49,16 +59,18 @@
     <h1 id="team-title">Profile</h1>
 
 
-    <div class="col d-flex">
-        <div class="card">
+    <div class="col d-flex" style="width: 100%; height: 100%;">
+        <div class="card" style="width: 100%; height: 100%;">
             <div class="card-body">
-                <script>setProfile()</script>
-                <p class="card-text" id="heyMessage"></p> <br />
-                <p class="card-text" id="profileInfo"></p> <br />
+                <p id="heyMessage"></p> <br />
+                <div id="userProfile">
+                    <div><p id="userRatings"></p></div>
+                    <div id="piechart"></div>
+                </div>
             </div>
         </div>
     </div>
-    <br />
+    <script>setProfile()</script>
 
 
 </body>

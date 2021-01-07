@@ -21,6 +21,17 @@
     tr:nth-child(even) {
         background-color: #dddddd;
     }
+    /* Float cancel and signup buttons and add an equal width */
+    .cancelbtn, .signupbtn {
+        float: left;
+        width: 50%;
+    }
+
+    /* Add padding to container elements */
+    .container {
+        padding: 16px;
+    }
+
 </style>
 <head>
     <!-- Latest compiled and minified CSS -->
@@ -50,6 +61,8 @@
     <link href="css/ListStyle.css" rel="stylesheet" type="text/css" />
 
     <script src="js/main.js"></script>
+    <script src="js/APIs/usersAPI.js"></script>
+    <script src="js/APIs/reviewsAPI.js"></script>
     <script src="js/APIs/placesAPI.js"></script>
     <script src="js/forms.js"></script>
 </head>
@@ -82,6 +95,21 @@
     </nav>
 
     <div class="wrapper">
+        <!-- Choose place on map buttonn-->
+        <div style="width: 100%; height: 100%;">
+            <input type="button" onclick="setLocation(1)" style="background-color: #696969;
+                                                font-size:16px; border: none; padding: 5px;
+                                                float: left; right:40px; color:white; width:45%;" value="Use My Location">
+            <input type="button" onclick="setLocation(2)" style="background-color: #696969;
+                                                font-size:16px; border: none; padding: 5px;
+                                                float: right; right:40px; color:white; width:45%;" value="Choose Location From Map">
+        </div>
+        <!-- Get Recommended button-->
+        <div style="width: 100%; height: 100%;">
+            <input type="button" id ="recommendedButton" onclick="showRecommended()" style="background-color: #FFD700;
+                                                font-size:16px; border: none; padding: 5px;
+                                                float: right; right:40px; width:100%;" value="Show Recommended Locations">
+        </div>
         <!-- map -->
         <div style="width: 100%; height: 100%;">
             <div id="mapid" style="width: 100%; height: 100%;"></div>
@@ -96,18 +124,14 @@
                         <tr>
                             <th scope="col" class="attractions-data">
                                 Find By Parameters &nbsp;&nbsp;
-                                <input type="button" onclick="" style="background-color: #FFD700;
-                                                font-size:16px; border: none; padding: 5px;
-                                                float: right; right:40px; width:50%;" value="Show Recommended">
                             </th>
                         </tr>
                     </thead>
                 </table>
-                <div class="attractions-body" >
+                <div class="attractions-body">
                     <form name="parameterForm" id="parameters" class="table">
                         <tbody class="attractions-body">
                             <!--add here the parameters and find button-->
-                            &nbsp;&nbsp;&nbsp;&nbsp;
                             <label class="container">
                                 <input type="checkbox" id="see" name="see" value="see"> See
                                 <input type="checkbox" id="sleep" name="sleep" value="sleep"> Sleep
@@ -131,7 +155,8 @@
                                 <input type="checkbox" id="other" name="other" value="other"> Other
                             </label>
                             &nbsp;&nbsp;
-                            <input type="button" onclick="checkAll()" value="Check All">
+                            <input type="button" onclick="checkAll(true)" value="Check All">
+                            <input type="button" onclick="checkAll(false)" value="Uncheck All">
                             <br />
                             <br />
                             &nbsp;&nbsp;
@@ -178,30 +203,36 @@
                 </div>
             </div>
         </div>
-        <div id="id01" class="modal">
+        <div id="id01" class="modal" style="width:50%; float:right">
             <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
             <form name="reviewForm" class="modal-content">
-                <div class="container">
-                    <h1>Review</h1><br />
+                <div class="container" id="id02">
+                    <h1 id="reviewHead"></h1><br />
                     <p>Please fill in this form to leave a review.</p><br />
                     <hr>
                     <label for="review"><b>Review:</b></label><br />
                     <textarea id="review" name="review" rows="4" cols="50"></textarea><br />
 
-                    <label for="rating"><b>Stars(between 0 and 5):</b></label><br />
-                    <input type="number" id="rating" name="rating" min="0" max="5"><br />
-
+                    <label for="rating"><b>Stars(between 0 and 5):</b></label>
+                    <input type="number" id="rating" name="rating" min="0" max="5">
+                    <p id="ratingText"></p><br />
+                    <br />
                     <div class="clearfix">
-                        <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+                        <button type="button" onclick="resetRateForm()" class="cancelbtn">Cancel</button>
                         <button type="button" class="signupbtn" onclick="addRating()">Submit</button>
                     </div>
                 </div>
             </form>
         </div>
-        <div>
+        <div class="infoReviews">
             <!-- attraction details-->
-            <div id="AttractionDetails" style="width: 100%; height: 100%;">
+            <div id="AttractionDetails">
+                <p style ="font-size:16px">Location Details:</p>
                 <p id="AttractionDetailsText"></p>
+            </div>
+            <div id="AttractionReview">
+                <p style="font-size:16px">Location Reviews:</p>
+                <p id="AttractionDetailsReviews"></p>
             </div>
         </div>
         <!--dark/light mode button-->
@@ -212,7 +243,7 @@
                     <input type="checkbox" id="switchBtn" name="theme">
                     <span class="slider round"></span>
                 </label>
-                <label id="dayModeButton" for="switchBtn">light mode</label>
+                <label id="dayModeButton" for="switchBtn" style="font-size: 16px">light mode</label>
             </div>
         </div>
     </div>
@@ -226,10 +257,12 @@
             if (this.checked) {
                 document.documentElement.setAttribute('data-theme', 'dark')
                 document.getElementById("dayModeButton").textContent = "dark mode";
+                document.getElementById("id02").style.backgroundColor = "gray";
                 document.getElementById("dndImage").src = "assets/dnd-black.png";
             } else {
                 document.documentElement.setAttribute('data-theme', 'light')
                 document.getElementById("dayModeButton").textContent = "light mode";
+                document.getElementById("id02").style.backgroundColor = "white";
                 document.getElementById("dndImage").src = "assets/dnd-white.png";
             }
         })</script>

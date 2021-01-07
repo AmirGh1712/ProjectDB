@@ -25,7 +25,7 @@ function setUp(mapDivId) {
  * @param {*} anchor The point of the icon which will correspond to marker's location.
  * @param {*} popUpAnchor The point from which the popup should open relative to the iconAnchor.
  */
-function createIcon(url, size = [40, 40] , anchor = [20, 40], popUpAnchor = [-3, -76]) {
+function createIcon(url, size = [20, 20] , anchor = [10, 20], popUpAnchor = [-3, -76]) {
     return L.icon({
         iconUrl: url,
         iconSize: size,
@@ -72,9 +72,8 @@ function deleteMarker(marker, mymap) {
 
 // Creates a map
 var map = setUp('mapid')
-
 // Creates an icon
-//var icon = createIcon("https://icons-for-free.com/iconfiles/png/512/marker-131994967950423839.png")
+var icon = createIcon("https://icons-for-free.com/iconfiles/png/512/marker-131994967950423839.png")
 
 // Adds a marker
 //var m = addMarker([0,0], map, icon, () => changeMarkerSize(m, [80, 80], [40, 80]))
@@ -84,3 +83,29 @@ var map = setUp('mapid')
 
 // delete sthe marker
 // deleteMarker(m, map)
+
+//map.on('click', getLatLong)
+var curserMarker = null
+function getLatLong(event) {
+    if (curserMarker)
+        deleteMarker(curserMarker, map)
+    curserMarker = addMarker(event.latlng, map, icon, function a() { })
+}
+function mapClickOn() {
+    map.on('click', getLatLong)
+}
+function mapClickOff() {
+    if (curserMarker)
+        deleteMarker(curserMarker, map)
+    curserMarker = null
+    map.off('click', getLatLong)
+}
+//map.off('click', getLatLong)
+/*document.getElementById("btn").onclick = () => {
+    if (curserMarker) {
+        alert(curserMarker.getLatLng().lat + " " + curserMarker.getLatLng().lng)
+        changeView(map, curserMarker.getLatLng().lat, curserMarker.getLatLng().lng, 0)
+    }
+}*/
+
+ //map.setView([lat, lng], 14);

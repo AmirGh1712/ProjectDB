@@ -53,13 +53,13 @@ async function createUser(username, password, fullname, todo) {
  * @param {any} username
  * @param {any} category
  *********************************************************************/
-async function getAverageCategoryReview(username, category) {
+async function getAverageCategoryReview(username, category, todo) {
     await $.ajax({
         url: "api/User" + "?username=" + username + "&category=" + category,
         type: "get", //send it through get method
 
         success: function (data) {
-            return data;
+            todo(data);
         },
         error: function (xhr) {
             // does nothing
@@ -71,13 +71,13 @@ async function getAverageCategoryReview(username, category) {
  * Gets the recommended places for a user.
  * @param {any} username
  *********************************************************************/
-async function getRecommendedPlaces(username) {
+async function getRecommendedPlaces(username, todo) {
     await $.ajax({
         url: "api/User/recommendation" + "?username=" + username,
         type: "get", //send it through get method
 
         success: function (data) {
-            return data;
+            todo(data);
         },
         error: function (xhr) {
             // does nothing

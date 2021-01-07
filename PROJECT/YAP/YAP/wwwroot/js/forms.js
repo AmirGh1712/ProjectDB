@@ -7,9 +7,10 @@ var latitude;
 var longitude;
 var currentPlaces = [];
 var currentPlace;
-
+var myLocationMarker;
 
 // setting icons
+categoryToIcon["myLocation"] = createIcon("https://icons-for-free.com/iconfiles/png/512/marker-131994967950423839.png")
 categoryToIcon["default"] = createIcon("https://image.flaticon.com/icons/png/512/12/12403.png");
 categoryToIcon["eat"] = createIcon("https://img.icons8.com/metro/26/000000/dining-room.png");
 categoryToIcon["drink"] = createIcon("https://img.icons8.com/pastel-glyph/64/000000/drink-to-go--v1.png");
@@ -70,7 +71,8 @@ function activateLogin(username, password) {
 }
 function handleUserLogin(myUser) {
     if (myUser) {
-        localStorage.setItem("user", myUser);
+        localStorage.setItem("fullname", myUser.fullname);
+        localStorage.setItem("username", myUser.username);
         location.replace("profile.html");
     }
     else {
@@ -84,7 +86,7 @@ function handleUserLogin(myUser) {
  * in a global variables.
  *********************************************************************/
 function activateParameterForm() {
-    radius = document.forms["parameterForm"]["radius"].value;
+    radius = document.forms["parameterForm"]["radius"].value / 111;
     if (radius == "") {
         alert("You must enter a radius in order to search for locations");
         return;
@@ -123,11 +125,57 @@ function activateParameterForm() {
         }
     }
 
-    // getting latitude and longitude from user, then activate changes on map
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(setPosition);
+    if (cats.length == 0) {
+        alert("You must choose at least 1 category in order to search for locations.")
+        return;
+    }
+
+    if (latitude == null) {
+        alert("First choose a location!")
+    }
+    getPlaces(longitude, latitude, radius, stars, cats, handlePlaces);
+    //sets the view
+    if (radius * 111 <= 1) {
+        map.setView([latitude, longitude], (13))
+    } else if (radius * 111 <= 5) {
+        map.setView([latitude, longitude], (12))
+    } else if (radius * 111 <= 10){
+        map.setView([latitude, longitude], (11))
+    } else if (radius * 111 <= 25) {
+        map.setView([latitude, longitude], (10))
+    } else if (radius * 111 <= 50) {
+        map.setView([latitude, longitude], (9))
+    } else if (radius * 111 <= 100) {
+        map.setView([latitude, longitude], (8))
+    } else if (radius * 111 <= 200) {
+        map.setView([latitude, longitude], (7))
+    } else if (radius * 111 > 200) {
+        map.setView([latitude, longitude], (6))
+    }
+}
+
+function setLocation(mode) {
+    if (myLocationMarker != null) {
+        deleteMarker(myLocationMarker, map);
+    }
+    // mode 1 is my location
+    if (mode == 1) {
+        mapClickOff()
+        document.getElementById("mapid").onclick = () => {}
+        // getting latitude and longitude from user, then activate changes on map
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(setPosition);
+        } else {
+            alert("Geolocation is not supported by this browser");
+        }
     } else {
-        alert("Geolocation is not supported by this browser")
+        mapClickOn()
+        document.getElementById("mapid").onclick = () => {
+            if (curserMarker) {
+                latitude = curserMarker.getLatLng().lat;
+                longitude = curserMarker.getLatLng().lng;
+            }
+        }
     }
 }
 
@@ -140,9 +188,8 @@ function setPosition(position) {
     // activates changes in the map by the parameters
     latitude = position.coords.latitude;
     longitude = position.coords.longitude;
-    // radius = getDistanceFromLatLonInKm(latitude, longitude, latitude + radius, longitude)
-    radius = radius / 111;
-    getPlaces(longitude, latitude, radius, stars, cats, handlePlaces);
+    myLocationMarker = addMarker([latitude, longitude],
+        map, categoryToIcon["myLocation"], function a() { });
 }
 
 /*********************************************************************
@@ -170,6 +217,7 @@ function onePlace(place) {
  * @param {any} places - a list of place json objects
  *********************************************************************/
 function handlePlaces(places) {
+    document.getElementById("recommendedButton").value = "Show Recommended Locations";
     deleteCurrentIcons();
     // place the places on the map
     for (var i in places) {
@@ -264,7 +312,7 @@ function setPlacesTable(place, index) {
  * @param {any} place - a json object of a place.
  *********************************************************************/
 function setInfo(place) {
-    info = ""
+    var info = ""
     // for every info that exists - add it.
     if (place.name) {
         info += "Name: " + place.name + "<br />";
@@ -294,10 +342,53 @@ function setInfo(place) {
         info += "Directions: " + place.directions + "<br />";
     }
     if (place.stars) {
-        info += "Stars: " + place.stars + "<br />";
+        var stars = ["", "", "", "", ""]
+        for (var i = 0; i < 5; i++) {
+            if (place.stars > i + 0.5) {
+                stars[i] = " checked";
+            }
+        }
+        var rating = "<span class=\"fa fa-star" + stars[0] + "\"></span>" +
+            "<span class=\"fa fa-star" + stars[1] + "\"></span>" +
+            "<span class=\"fa fa-star" + stars[2] + "\"></span>" +
+            "<span class=\"fa fa-star" + stars[3] + "\"></span>" +
+            "<span class=\"fa fa-star" + stars[4] + "\"></span>";
+        info += "Stars: " + rating + "<br />";
     }
+    info += "<button onclick=\"document.getElementById('id01').style.display='block'; fromIndexToPlaceRating(" + currentPlaces.indexOf(place) + ")\" style=\"width:auto;\">Rate</button>"
     // changes the attraction details text to be the info gathered.
     document.getElementById("AttractionDetailsText").innerHTML = info;
+}
+
+function setReviews(place) {
+    getReviewsOfPlace(place.id, handleSetReviews);
+}
+
+function handleSetReviews(reviews) {
+    document.getElementById("AttractionDetailsReviews").innerHTML = "";
+    if (reviews) {
+        for (var i in reviews) {
+            var review = reviews[i];
+            var info = "";
+            info += "From User: " + review.username + "<br />";
+            info += "Review: " + review.review + "<br />";
+            var stars = ["", "", "", "", ""];
+            for (var i = 0; i < 5; i++) {
+                if (review.stars > i + 0.5) {
+                    stars[i] = " checked";
+                }
+            }
+            var rating = "<span class=\"fa fa-star" + stars[0] + "\"></span>" +
+                "<span class=\"fa fa-star" + stars[1] + "\"></span>" +
+                "<span class=\"fa fa-star" + stars[2] + "\"></span>" +
+                "<span class=\"fa fa-star" + stars[3] + "\"></span>" +
+                "<span class=\"fa fa-star" + stars[4] + "\"></span>";
+            info += "Stars: " + rating + "<br />";
+            info += "Date: " + (review.date).substring(0, 10) + "<br />" + "<br />" + "<br />";
+     
+            document.getElementById("AttractionDetailsReviews").innerHTML += info;
+        }
+    }
 }
 
 /*********************************************************************
@@ -325,13 +416,15 @@ function fromIndexToPlaceRating(index) {
 function whenClick(place) {
     // decrease the last place
     if (currentPlace) {
-        changeMarkerSize(currentPlace.marker, [40, 40], [20, 40]);
+        changeMarkerSize(currentPlace.marker, [20, 20], [10, 20]);
     }
     currentPlace = place;
     // increase the size
-    changeMarkerSize(place.marker, [80, 80], [40, 80]);
+    changeMarkerSize(place.marker, [40, 40], [20, 40]);
     // adds info
     setInfo(place);
+    setReviews(place);
+    map.setView([place.latitude, place.longitude], (13))
 }
 /*********************************************************************
  * Deletes the icons that are currently on the map
@@ -342,10 +435,11 @@ function deleteCurrentIcons() {
     }
     currentPlaces = [];
     if (currentPlace) {
-        changeMarkerSize(currentPlace.marker, [40, 40], [20, 40]);
+        changeMarkerSize(currentPlace.marker, [20, 20], [10, 20]);
     }
     currentPlace = null;
     document.getElementById("AttractionDetailsText").innerHTML = "";
+    document.getElementById("AttractionDetailsReviews").innerHTML = "";
 }
 
 /*********************************************************************
@@ -357,6 +451,8 @@ function deleteCurrentIcons() {
  *********************************************************************/
 function saveLocationRating(place) {
     currentReviewLocation = place;
+    document.getElementById("reviewHead").innerHTML = "Review - " + place.name;
+    getAverageCategoryReview(localStorage.getItem("username"), place.category, handleAverageRating);
 }
 
 /*********************************************************************
@@ -365,38 +461,88 @@ function saveLocationRating(place) {
  *********************************************************************/
 function addRating() {
     var review = document.forms["reviewForm"]["review"].value;
-    var stars = document.forms["reviewForm"]["rating"].value;
+    var stars = parseInt(document.forms["reviewForm"]["rating"].value);
     if (stars < 0 || stars > 5) {
         alert("Stars must be between 0 and 5")
         return;
     }
-    addReview(currentReviewLocation.id, localStorage.getItem("user").username, review, stars, null);
+    addReview(currentReviewLocation.id, localStorage.getItem("username"), review, stars);
+    resetRateForm();
+}
+
+function handleAverageRating(data) {
+    // mode 1 is to update the rating update
+    if (data == -1) {
+        document.getElementById("ratingText").innerHTML = " You never rated this category (" +
+            currentReviewLocation.category + ") before";
+    }
+    else {
+        document.getElementById("ratingText").innerHTML = " Your average stars for this place's category (" +
+            currentReviewLocation.category + ") is " + data;
+    }
 }
 
 function setProfile() {
-    document.getElementById("heyMessage").innerHTML = "Hey " + localStorage.getItem("user").fullname + "!";
-    document.getElementById("profileInfo").innerHTML = "Your Average Ratings: <br/>";
+    document.getElementById("heyMessage").innerHTML = "Hey " + localStorage.getItem("fullname") + "!";
+    getReviewsOfUser(localStorage.getItem("username"), handleSetProfile);
 }
 
-function checkAll() {
-    document.getElementById("see").checked = true;
-    document.getElementById("sleep").checked = true;
-    document.getElementById("buy").checked = true;
-    document.getElementById("eat").checked = true;
-    document.getElementById("drink").checked = true;
-    document.getElementById("do").checked = true;
-    document.getElementById("go").checked = true;
-    document.getElementById("city").checked = true;
-    document.getElementById("dr").checked = true;
-    document.getElementById("learn").checked = true;
-    document.getElementById("silver").checked = true;
-    document.getElementById("around").checked = true;
-    document.getElementById("listing").checked = true;
-    document.getElementById("view").checked = true;
-    document.getElementById("vicinity").checked = true;
-    document.getElementById("mq").checked = true;
-    document.getElementById("island").checked = true;
-    document.getElementById("park").checked = true;
-    document.getElementById("red").checked = true;
-    document.getElementById("other").checked = true;
+function handleSetProfile(reviews) {
+    var info = "Your Reviews:" + "<br/>";
+    for (var i in reviews) {
+        var review = reviews[i];
+        info += "Review: " + review.review + "<br/>";
+        var stars = ["", "", "", "", ""];
+        for (var j = 0; j < 5; j++) {
+            if (review.stars > j + 0.5) {
+                stars[j] = " checked";
+            }
+        }
+        var rating = "<span class=\"fa fa-star" + stars[0] + "\"></span>" +
+            "<span class=\"fa fa-star" + stars[1] + "\"></span>" +
+            "<span class=\"fa fa-star" + stars[2] + "\"></span>" +
+            "<span class=\"fa fa-star" + stars[3] + "\"></span>" +
+            "<span class=\"fa fa-star" + stars[4] + "\"></span>";
+        info += "Stars: " + rating + "<br />";
+        info += "Date: " + (review.date).substring(0, 10) + "<br/>" + "<br/>";
+    }
+    document.getElementById("userRatings").innerHTML = info;
+}
+
+function checkAll(changeTo) {
+    document.getElementById("see").checked = changeTo;
+    document.getElementById("sleep").checked = changeTo;
+    document.getElementById("buy").checked = changeTo;
+    document.getElementById("eat").checked = changeTo;
+    document.getElementById("drink").checked = changeTo;
+    document.getElementById("do").checked = changeTo;
+    document.getElementById("go").checked = changeTo;
+    document.getElementById("city").checked = changeTo;
+    document.getElementById("dr").checked = changeTo;
+    document.getElementById("learn").checked = changeTo;
+    document.getElementById("silver").checked = changeTo;
+    document.getElementById("around").checked = changeTo;
+    document.getElementById("listing").checked = changeTo;
+    document.getElementById("view").checked = changeTo;
+    document.getElementById("vicinity").checked = changeTo;
+    document.getElementById("mq").checked = changeTo;
+    document.getElementById("island").checked = changeTo;
+    document.getElementById("park").checked = changeTo;
+    document.getElementById("red").checked = changeTo;
+    document.getElementById("other").checked = changeTo;
+}
+
+function resetRateForm() {
+    document.forms["reviewForm"]["review"].value = "";
+    document.forms["reviewForm"]["rating"].value = null;
+    document.getElementById('id01').style.display = 'none';
+}
+
+function showRecommended() {
+    if (latitude == null) {
+        alert("You must choose a location first!")
+        return;
+    }
+    document.getElementById("recommendedButton").value = "Loading...";
+    getRecommendedPlaces(localStorage.getItem("username"), handlePlaces);
 }

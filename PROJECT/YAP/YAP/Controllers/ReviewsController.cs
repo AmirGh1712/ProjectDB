@@ -66,7 +66,7 @@ namespace YAP.Controllers
             }
             catch (ArgumentException e)
             {
-                return BadRequest(e.Message);
+                return BadRequest("Couldn't add your review, maybe because you post a review on this place before.");
             }
             catch (Exception e)
             {
