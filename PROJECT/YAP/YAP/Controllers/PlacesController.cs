@@ -24,7 +24,7 @@ namespace YAP.Controllers
         [HttpGet]
         public async Task<ActionResult<IList<Place>>> Get(float longitude, float latitude, float radius, int stars = 0, [FromQuery(Name = "cats")] LinkedList<string> cats = null)
         {
-            Filter f = new Filter(latitude - radius, latitude + radius, longitude - radius, longitude + radius);
+            Filter f = new Filter(latitude, longitude, radius);
             f.stars = stars;
             if (cats.Count > 0)
             {

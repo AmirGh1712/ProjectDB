@@ -10,10 +10,10 @@ namespace YAP.Objects
     public class Filter
     {
         // min & max for lat & long, min stars, list of strings of categories & city string
-        private float minlat = -90;
-        private float maxlat = 90;
-        private float minlong = -180;
-        private float maxlong = 180;
+        private float longitude = -180;
+        private float latitude = 180;
+        private float radius = 10;
+
         public int stars { get; set; }
         public LinkedList<string> cats { get; set; }
 
@@ -29,12 +29,11 @@ namespace YAP.Objects
             DefualtCats();
         }
 
-        public Filter(float minlat, float maxlat, float minlong, float maxlong)
+        public Filter(float lati, float longi, float rad)
         {
-            this.minlat = minlat;
-            this.maxlat = maxlat;
-            this.minlong = minlong;
-            this.maxlong = maxlong;
+            this.latitude = lati;
+            this.longitude = longi;
+            this.radius = Math.Min(rad, 10);
             DefualtCats();
             stars = 0;
         }
@@ -44,12 +43,11 @@ namespace YAP.Objects
             stars = 0;
         }
 
-        public Filter(int stars, float minlat, float maxlat, float minlong, float maxlong)
+        public Filter(int stars, float lati, float longi, float rad)
         {
-            this.minlat = minlat;
-            this.maxlat = maxlat;
-            this.minlong = minlong;
-            this.maxlong = maxlong;
+            this.latitude = lati;
+            this.longitude = longi;
+            this.radius = Math.Min(rad, 10);
             this.stars = stars;
             DefualtCats();
         }
@@ -60,23 +58,21 @@ namespace YAP.Objects
             this.cats = new LinkedList<string>(cats);
         }
 
-        public Filter(float minlat, float maxlat, float minlong, float maxlong, List<string> cats)
+        public Filter(float lati, float longi, float rad, List<string> cats)
         {
-            this.minlat = minlat;
-            this.maxlat = maxlat;
-            this.minlong = minlong;
-            this.maxlong = maxlong;
+            this.latitude = lati;
+            this.longitude = longi;
+            this.radius = Math.Min(rad, 10);
             this.cats = new LinkedList<string>(cats);
             stars = 0;
         }
 
-        public Filter(int stars, float minlat, float maxlat, float minlong, float maxlong, List<string> cats)
+        public Filter(int stars, float lati, float longi, float rad, List<string> cats)
         {
             this.stars = stars;
-            this.minlat = minlat;
-            this.maxlat = maxlat;
-            this.minlong = minlong;
-            this.maxlong = maxlong;
+            this.latitude = lati;
+            this.longitude = longi;
+            this.radius = Math.Min(rad, 10);
             this.cats = new LinkedList<string>(cats);
         }
 
@@ -96,10 +92,7 @@ namespace YAP.Objects
             //    command += " LEFT JOIN reviews ON places.idPlaces = reviews.idPlaces";
             //}
             command += " WHERE";
-            command += " latitude > " + minlat.ToString();
-            command += " AND latitude < " + maxlat.ToString();
-            command += " AND longitude > " + minlong.ToString();
-            command += " AND longitude < " + maxlong.ToString();
+            command += " SQRT(POWER(latitude - " + latitude + ", 2) + POWER(longitude - " + longitude + ", 2)) <= " + radius;
             string res = "(" + string.Join(", ", cats.Select(s => $"'{s}'")) + ")";
             command += " AND category in " + res;
             command += " GROUP BY(places.idPlaces) HAVING AVG(COALESCE(stars, 0)) >= " + stars.ToString() + "  ORDER BY AVG(COALESCE(stars, 0)) DESC";  

@@ -56,13 +56,14 @@ namespace YAP.DataBase
             }
         }
 
-        public async IAsyncEnumerable<Review> GetReviewsByUser(string uname)
+        public async IAsyncEnumerable<Tuple<Review, Place>> GetReviewsByUser(string uname)
         {
             // Opening the connection
             using MySqlConnection con = new MySqlConnection(connectionString);
             await con.OpenAsync();
             // Get all from the DB
-            using MySqlCommand command = new MySqlCommand("SELECT * FROM reviews WHERE username = BINARY @username ORDER BY date DESC", con);
+            using MySqlCommand command = new MySqlCommand("SELECT * FROM reviews JOIN places ON places.idPlaces = reviews.idPlaces " +
+                "WHERE username = BINARY @username ORDER BY date DESC", con);
             command.Parameters.AddWithValue("@username", uname);
             using MySqlDataReader rdr = (MySqlDataReader)await command.ExecuteReaderAsync();
             // Get and return the flightplans one by one
@@ -75,11 +76,26 @@ namespace YAP.DataBase
                 int stars = rdr.GetInt32(3);
                 DateTime date = rdr.GetDateTime(4);
 
+                int id = rdr.GetInt32(5);
+                string city = rdr.GetString(6);
+                string category = rdr.GetString(7);
+                string name = rdr.GetString(8);
+                string address = rdr.GetString(9);
+                string directions = rdr.GetString(10);
+                string phone = rdr.GetString(11);
+                string url = rdr.GetString(12);
+                string hours = rdr.GetString(13);
+                float latitude = rdr.GetFloat(14);
+                float longitude = rdr.GetFloat(15);
+                string description = rdr.GetString(16);
+
                 // Create it
                 Review review = new Review(idPlaces, username, text, stars, date);
+                Place place = new Place(id, city, category, name, address, directions, phone, url, hours,
+                    latitude, longitude, description, 0);
 
                 // Return it
-                yield return review;
+                yield return new Tuple<Review, Place>(review, place);
             }
             yield break; throw new NotImplementedException();
         }

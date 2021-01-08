@@ -35,13 +35,13 @@ namespace YAP.Controllers
 
         [Route("user")]
         [HttpGet]
-        public async Task<ActionResult<IList<Review>>> Get(string uname)
+        public async Task<ActionResult<IList<Tuple<Review, Place>>>> Get(string uname)
         {
-            IList<Review> reviews = new List<Review>();
+            IList<Tuple<Review, Place>> reviews = new List<Tuple<Review, Place>>();
 
-            await foreach (Review r in reviewsDB.GetReviewsByUser(uname))
+            await foreach (Tuple<Review, Place> rp in reviewsDB.GetReviewsByUser(uname))
             {
-                reviews.Add(r);
+                reviews.Add(rp);
             }
 
             return Ok(reviews);

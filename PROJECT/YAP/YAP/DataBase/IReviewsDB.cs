@@ -11,6 +11,6 @@ namespace YAP.DataBase
         public Task AddReview(Review review);
 
         public IAsyncEnumerable<Review> GetReviewsOnPlace(int placeid);
-        public IAsyncEnumerable<Review> GetReviewsByUser(string username);
+        public IAsyncEnumerable<Tuple<Review, Place>> GetReviewsByUser(string username);
     }
 }
