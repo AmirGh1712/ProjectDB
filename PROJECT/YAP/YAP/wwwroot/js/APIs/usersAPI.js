@@ -77,7 +77,13 @@ async function getRecommendedPlaces(username, todo) {
         type: "get", //send it through get method
 
         success: function (data) {
-            todo(data);
+            if (data.length != 0) {
+                todo(data);
+                map.setView([latitude, longitude], (0));
+            } else {
+                alert("You first need to add some reviews for us to know what you like :)");
+            };
+            document.getElementById("recommendedButton").value = "Show Recommended Locations";
         },
         error: function (xhr) {
             // does nothing

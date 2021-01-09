@@ -9,6 +9,9 @@ var currentPlaces = [];
 var currentPlace;
 var myLocationMarker;
 
+//google.charts.load('current', { 'packages': ['corechart'] });
+//google.charts.setOnLoadCallback(showChart);
+
 // setting icons
 categoryToIcon["myLocation"] = createIcon("https://icons-for-free.com/iconfiles/png/512/marker-131994967950423839.png")
 categoryToIcon["default"] = createIcon("https://image.flaticon.com/icons/png/512/12/12403.png");
@@ -217,7 +220,6 @@ function onePlace(place) {
  * @param {any} places - a list of place json objects
  *********************************************************************/
 function handlePlaces(places) {
-    document.getElementById("recommendedButton").value = "Show Recommended Locations";
     deleteCurrentIcons();
     // place the places on the map
     for (var i in places) {
@@ -483,14 +485,21 @@ function handleAverageRating(data) {
 }
 
 function setProfile() {
-    document.getElementById("heyMessage").innerHTML = "Hey " + localStorage.getItem("fullname") + "!";
+    document.getElementById("heyMessage").innerHTML = "<h3>Hey " + localStorage.getItem("fullname") + "!</h3>";
     getReviewsOfUser(localStorage.getItem("username"), handleSetProfile);
 }
 
 function handleSetProfile(reviews) {
-    var info = "Your Reviews:" + "<br/>";
+    var info = "<h3>Your Reviews:</h3>" + "<br/>";
+    var arr = new Array("see", "sleep", "buy", "eat", "drink", "do",
+        "go", "diplomatic-representation", "city", "learn", "silver", "around", "listing",
+        "view", "vicinity", "mediumaquamarine", "island", "park", "red", "other");
+    var arrValues = new Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
     for (var i in reviews) {
-        var review = reviews[i];
+        var review = reviews[i].item1;
+        var place = reviews[i].item2;
+        arrValues[arr.indexOf(place.category)]++;
+        info += "Location: " + place.name + "<br/>";
         info += "Review: " + review.review + "<br/>";
         var stars = ["", "", "", "", ""];
         for (var j = 0; j < 5; j++) {
@@ -507,6 +516,40 @@ function handleSetProfile(reviews) {
         info += "Date: " + (review.date).substring(0, 10) + "<br/>" + "<br/>";
     }
     document.getElementById("userRatings").innerHTML = info;
+    //showChart(arr, arrValues);
+}
+
+function showChart(arr, arrValues) {
+    var data = google.visualization.arrayToDataTable([
+        ['Category', 'Amount of reviews'],
+        [arr[0], arrValues[0]],
+        [arr[1], arrValues[1]],
+        [arr[2], arrValues[2]],
+        [arr[3], arrValues[3]],
+        [arr[4], arrValues[4]],
+        [arr[5], arrValues[5]],
+        [arr[6], arrValues[6]],
+        [arr[7], arrValues[7]],
+        [arr[8], arrValues[8]],
+        [arr[9], arrValues[9]],
+        [arr[10], arrValues[10]],
+        [arr[11], arrValues[11]],
+        [arr[12], arrValues[12]],
+        [arr[13], arrValues[13]],
+        [arr[14], arrValues[14]],
+        [arr[15], arrValues[15]],
+        [arr[16], arrValues[16]],
+        [arr[17], arrValues[17]],
+        [arr[18], arrValues[18]],
+        [arr[19], arrValues[19]],
+    ]);
+
+    // Optional; add a title and set the width and height of the chart
+    var options = { 'title': 'Your Reviews By Category', 'width': 550, 'height': 400 };
+
+    // Display the chart inside the <div> element with id="piechart"
+    var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+    chart.draw(data, options);
 }
 
 function checkAll(changeTo) {
