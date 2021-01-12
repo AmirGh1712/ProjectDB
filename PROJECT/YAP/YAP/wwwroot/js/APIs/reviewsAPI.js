@@ -19,7 +19,10 @@ async function addReview(idPlaces, username, review, stars) {
             alert("Rating was added! Thank you.");
         },
         error: function (xhr) {
-            alert(xhr.responseText)
+            if (xhr.status == 500)
+                alert("Server is not responding, please try again later.");
+            else
+                alert(xhr.responseText)
         }
     });
 }
@@ -37,7 +40,7 @@ async function getReviewsOfPlace(id, todo) {
             todo(data);
         },
         error: function (xhr) {
-            // does nothing
+            alert("Server is not responding, please try again later.");
         }
     });
 }
@@ -55,7 +58,7 @@ async function getReviewsOfUser(username, todo) {
             todo(data);
         },
         error: function (xhr) {
-            // does nothing
+            alert("Server is not responding, please try again later.");
         }
     });
 }

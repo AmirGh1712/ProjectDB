@@ -18,7 +18,7 @@ async function doesUserExist(username, password, todo) {
             todo(data);
         },
         error: function (xhr) {
-            // does nothing
+            alert("Server is not responding, please try again later.");
         }
     });
 }
@@ -43,7 +43,10 @@ async function createUser(username, password, fullname, todo) {
             todo(data, username, password);
         },
         error: function (xhr) {
-            alert(xhr.responseText)
+            if (xhr.status == 500)
+                alert("Server is not responding, please try again later.");
+            else
+                alert(xhr.responseText)
         }
     });
 }
@@ -62,7 +65,7 @@ async function getAverageCategoryReview(username, category, todo) {
             todo(data);
         },
         error: function (xhr) {
-            // does nothing
+            alert("Server is not responding, please try again later.");
         }
     });
 }
@@ -86,7 +89,7 @@ async function getRecommendedPlaces(username, todo) {
             document.getElementById("recommendedButton").value = "Show Recommended Locations";
         },
         error: function (xhr) {
-            // does nothing
+            alert("Server is not responding, please try again later.");
         }
     });
 }

@@ -29,7 +29,7 @@ async function getPlaces(longitude, latitude, radius, stars, cats, todo) {
             //return data;
         },
         error: function (xhr) {
-            // does nothing
+            alert("Server is not responding, please try again later.");
         }
     });
 }
