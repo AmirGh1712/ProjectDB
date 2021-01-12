@@ -89,11 +89,16 @@ function handleUserLogin(myUser) {
  * in a global variables.
  *********************************************************************/
 function activateParameterForm() {
-    radius = document.forms["parameterForm"]["radius"].value / 111;
+    radius = document.forms["parameterForm"]["radius"].value;
     if (radius == "") {
         alert("You must enter a radius in order to search for locations");
         return;
     }
+    if (latitude == null) {
+        alert("You must choose a location first!")
+        return;
+    }
+    radius = radius / 111;
     // getting all the categories from the forms
     stars = document.forms["parameterForm"]["stars"].value;
     var see = document.forms["parameterForm"]["see"];

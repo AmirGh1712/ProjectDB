@@ -7,6 +7,7 @@ C:\Users\Lenovo\Desktop\Studies\סדנה במסדי נתונים\Project\Project
 C:\Users\Lenovo\Desktop\Studies\סדנה במסדי נתונים\Project\ProjectDB\PROJECT\YAP\out\YAP.runtimeconfig.dev.json
 C:\Users\Lenovo\Desktop\Studies\סדנה במסדי נתונים\Project\ProjectDB\PROJECT\YAP\out\YAP.dll
 C:\Users\Lenovo\Desktop\Studies\סדנה במסדי נתונים\Project\ProjectDB\PROJECT\YAP\out\YAP.pdb
+C:\Users\Lenovo\Desktop\Studies\סדנה במסדי נתונים\Project\ProjectDB\PROJECT\YAP\YAP\obj\Debug\YAP.csprojAssemblyReference.cache
 C:\Users\Lenovo\Desktop\Studies\סדנה במסדי נתונים\Project\ProjectDB\PROJECT\YAP\YAP\obj\Debug\YAP.csproj.CoreCompileInputs.cache
 C:\Users\Lenovo\Desktop\Studies\סדנה במסדי נתונים\Project\ProjectDB\PROJECT\YAP\YAP\obj\Debug\YAP.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\Lenovo\Desktop\Studies\סדנה במסדי נתונים\Project\ProjectDB\PROJECT\YAP\YAP\obj\Debug\YAP.AssemblyInfoInputs.cache
@@ -18,4 +19,3 @@ C:\Users\Lenovo\Desktop\Studies\סדנה במסדי נתונים\Project\Project
 C:\Users\Lenovo\Desktop\Studies\סדנה במסדי נתונים\Project\ProjectDB\PROJECT\YAP\YAP\obj\Debug\YAP.dll
 C:\Users\Lenovo\Desktop\Studies\סדנה במסדי נתונים\Project\ProjectDB\PROJECT\YAP\YAP\obj\Debug\YAP.pdb
 C:\Users\Lenovo\Desktop\Studies\סדנה במסדי נתונים\Project\ProjectDB\PROJECT\YAP\YAP\obj\Debug\YAP.genruntimeconfig.cache
-C:\Users\Lenovo\Desktop\Studies\סדנה במסדי נתונים\Project\ProjectDB\PROJECT\YAP\YAP\obj\Debug\YAP.csprojAssemblyReference.cache

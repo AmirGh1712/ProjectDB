@@ -1,0 +1,68 @@
+﻿html, body, .wrapper {
+    height: 100%;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--backgound-color);
+    /*position: fixed;
+    overflow-y: scroll;*/
+    width: 100%;
+}
+
+.wrapper {
+    padding: 1em;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: 5% 70% 25%;
+    grid-gap: 1em;
+    justify-items: stretch;
+    align-items: stretch;
+    /*border: 5px solid;*/
+    min-height: 460px;
+    background-color: var(--app-color);
+    color: var(--text-color);
+}
+
+.infoReviews {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+#mapid {
+    border: 1px solid black;
+}
+
+#AttractionDetailsText {
+    font-size: 12px;
+    padding: 0.25em;
+    border: 5px solid var(--attraction-details-border-color);
+    min-height: 5em;
+    background-color: var(--attraction-details-background-color);
+}
+
+#AttractionDetailsReviews {
+    font-size: 12px;
+    padding: 0.25em;
+    border: 5px solid var(--attraction-details-border-color);
+    min-height: 5em;
+    background-color: var(--attraction-details-background-color);
+}
+
+.alert {
+    margin-top: 0px;
+    /*
+    position: absolute;
+    left: 100px;
+    top: 650px;
+        */
+}
+
+.custom-file-label {
+    color: var(--text-color);
+    background-color: var(--json-label-background-color);
+}
+
+.relativeContainer {
+    position: relative;
+}
