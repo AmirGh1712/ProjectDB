@@ -18,7 +18,7 @@ async function doesUserExist(username, password, todo) {
             todo(data);
         },
         error: function (xhr) {
-            // does nothing
+            alert("Server is not responding, please try again later.")
         }
     });
 }

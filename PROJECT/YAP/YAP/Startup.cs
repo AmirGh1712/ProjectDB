@@ -44,7 +44,7 @@ namespace YAP
             //allow access to files stored in wwwroot
             app.UseStaticFiles();
 
-            // app.UseHttpsRedirection();
+            app.UseHttpsRedirection();
 
             app.UseRouting();
 
@@ -54,6 +54,9 @@ namespace YAP
             {
                 endpoints.MapControllers();
             });
+
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
         }
     }
 }
